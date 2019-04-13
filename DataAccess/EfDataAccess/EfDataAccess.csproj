@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>Quorum.DataAccess.Ef</AssemblyName>
+    <RootNamespace>Quorum.DataAccess.Ef</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories" />
+  </ItemGroup>
+
+</Project>

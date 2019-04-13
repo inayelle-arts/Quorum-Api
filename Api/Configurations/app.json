@@ -1,0 +1,11 @@
+{
+    "ConnectionStrings": {
+        "PostgreSql-Default": ""
+    },
+    "Cors": {
+        "Angular": {
+            "Enabled": true,
+            "Host": "http://127.0.0.1"
+        }
+    }
+}
