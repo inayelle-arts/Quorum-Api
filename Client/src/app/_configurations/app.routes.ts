@@ -3,10 +3,14 @@ import {Routes} from "@angular/router";
 import
 {
 	HomeComponent,
-	NewTestComponent
+	NewTestComponent,
+	TestPolygonComponent
 } from "../_components/components";
 
-const ROUTES: Routes =
+import {UnsavedDataGuard} from "../_guards/unsaved-data.guard";
+import {SignedUserOnlyGuard} from "../_guards/signed-user-only.guard";
+
+export const ROUTES: Routes =
 	[
 		{
 			path: '',
@@ -14,7 +18,13 @@ const ROUTES: Routes =
 		},
 		{
 			path: 'new',
-			component: NewTestComponent
+			component: NewTestComponent,
+			canDeactivate: [UnsavedDataGuard],
+			canActivate: [SignedUserOnlyGuard]
+		},
+		{
+			path: 'polygon',
+			component: TestPolygonComponent
 		}
 	];
 

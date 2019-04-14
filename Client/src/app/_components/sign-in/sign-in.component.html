@@ -21,6 +21,6 @@
             </mat-error>
         </mat-form-field>
 
-        <button mat-raised-button class="submitter" type="submit">Come in</button>
+        <button mat-raised-button class="submitter" type="submit" [disabled]="form.invalid">Come in</button>
     </form>
 </div>

@@ -8,7 +8,7 @@
             <span class="nav-link-text">Create</span>
         </button>
         <button mat-menu-item (click)="onSignInClick()" *ngIf="!_userService.current">
-            <mat-icon class="nav-link-icon">fingerprint</mat-icon>
+            <mat-icon class="nav-link-icon">arrow_forward</mat-icon>
             <span class="nav-link-text">Sign in</span>
         </button>
         <button mat-menu-item (click)="onSignUpClick()" *ngIf="!_userService.current">
@@ -20,8 +20,8 @@
             <span class="nav-link-text">Profile</span>
         </button>
         <button mat-menu-item (click)="onLogoutClick()" *ngIf="_userService.current">
-            <mat-icon class="nav-link-icon">account_box</mat-icon>
-            <span class="nav-link-text">Log out</span>
+            <mat-icon class="nav-link-icon">arrow_back</mat-icon>
+            <span class="nav-link-text">Leave</span>
         </button>
     </mat-menu>
 </div>

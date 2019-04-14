@@ -15,9 +15,20 @@ body {
 }
 
 .container-center {
+  width: 100%;
+
   display: flex;
+
   align-self: center;
-  align-items: center;
+  justify-self: center;
+
   justify-content: center;
+  align-items: center;
+
   flex-wrap: wrap;
+}
+
+.spacer {
+  display: flex;
+  flex: 1;
 }
