@@ -1,0 +1,26 @@
+<div class="container-center">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <h1 class="form-header-left">
+            Welcome back!
+        </h1>
+
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" [formControl]="email">
+            <mat-error *ngIf="email.touched && email.invalid">
+                Please, type a valid email
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput type="password" [formControl]="password">
+            <mat-error *ngIf="password.touched && password.invalid">
+                Please, enter your password
+            </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button class="submitter" type="submit">Come in</button>
+    </form>
+</div>

@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "colors";
+@import "util";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
+
+body {
+  background: url("assets/back-alt.png") repeat;
+}
+
+.container-center {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
