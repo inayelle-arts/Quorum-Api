@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {ComponentBase} from "../../_base/component.base";
-import {MatBottomSheet} from "@angular/material";
+import {MatBottomSheet, MatSnackBar} from "@angular/material";
 
 import {SignUpComponent} from "../sign-up/sign-up.component";
 import {SignInComponent} from "../sign-in/sign-in.component";
 import {IUserService} from "../../_interfaces/i.user.service";
+import {NotificationsService} from "../../_services/notifications.service";
 
 @Component({
 	           selector: 'app-menu-button',
@@ -13,15 +14,22 @@ import {IUserService} from "../../_interfaces/i.user.service";
            })
 export class MenuButtonComponent extends ComponentBase
 {
-	public readonly _userService: IUserService;
 	private readonly _bottomMenu: MatBottomSheet;
+	private readonly _notificationService: NotificationsService;
 	
-	constructor(bottomMenu: MatBottomSheet, userService: IUserService)
+	public readonly _userService: IUserService;
+	
+	public constructor(
+		bottomMenu: MatBottomSheet,
+		userService: IUserService,
+		notificationService: NotificationsService
+	)
 	{
 		super();
 		
 		this._bottomMenu = bottomMenu;
 		this._userService = userService;
+		this._notificationService = notificationService;
 	}
 	
 	public onSignInClick(): void
@@ -37,5 +45,6 @@ export class MenuButtonComponent extends ComponentBase
 	public onLogoutClick(): void
 	{
 		this._userService.logout();
+		this._notificationService.message('See you soon :)');
 	}
 }

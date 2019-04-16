@@ -5,13 +5,12 @@ import {HttpClient} from "@angular/common/http";
 import API_URLS from "../_configurations/app.api.urls";
 import {NotImplementedException} from "../_exceptions/not.implemented.exception";
 
-import {SignUpViewModel} from "../_viewModels/sign.up.view.model";
-import {SignInViewModel} from "../_viewModels/sign.in.view.model";
-
-import {SignInResult} from "../_results/sign.in.result";
-import {SignUpResult} from "../_results/sign.up.result";
 import {Injectable} from "@angular/core";
 import {User} from "../_entities/user";
+import {SignUpViewModel} from "../_viewModels/sign-up.view-model";
+import {SignInViewModel} from "../_viewModels/sign-in.view-model";
+import {SignUpResult} from "../_results/sign-up.result";
+import {SignInResult} from "../_results/sign-in.result";
 
 @Injectable()
 export class UserServiceMock implements IUserService

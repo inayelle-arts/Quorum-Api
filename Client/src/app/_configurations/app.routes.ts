@@ -1,16 +1,17 @@
-import {Routes} from "@angular/router";
+import {Routes} from '@angular/router';
 
 import
 {
 	HomeComponent,
 	NewTestComponent,
 	TestPolygonComponent
-} from "../_components/components";
+} from '../_components/components';
 
-import {UnsavedDataGuard} from "../_guards/unsaved-data.guard";
-import {SignedUserOnlyGuard} from "../_guards/signed-user-only.guard";
+import {UnsavedDataGuard} from '../_guards/unsaved-data.guard';
+import {SignedUserOnlyGuard} from '../_guards/signed-user-only.guard';
+import {PassComponent} from '../_components/pass/pass.component';
 
-export const ROUTES: Routes =
+const ROUTES: Routes =
 	[
 		{
 			path: '',
@@ -19,6 +20,12 @@ export const ROUTES: Routes =
 		{
 			path: 'new',
 			component: NewTestComponent,
+			canDeactivate: [UnsavedDataGuard],
+			canActivate: [SignedUserOnlyGuard]
+		},
+		{
+			path: 'pass/:id',
+			component: PassComponent,
 			canDeactivate: [UnsavedDataGuard],
 			canActivate: [SignedUserOnlyGuard]
 		},

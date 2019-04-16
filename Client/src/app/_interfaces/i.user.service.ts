@@ -1,13 +1,11 @@
 import {UserType} from "../_enums/usertype";
 import {Observable} from "rxjs";
 
-import {SignUpResult} from "../_results/sign.up.result";
-import {SignInResult} from "../_results/sign.in.result";
-
-import {SignInViewModel} from "../_viewModels/sign.in.view.model";
-import {SignUpViewModel} from "../_viewModels/sign.up.view.model";
-
 import {User} from "../_entities/user";
+import {SignInViewModel} from "../_viewModels/sign-in.view-model";
+import {SignUpViewModel} from "../_viewModels/sign-up.view-model";
+import {SignInResult} from "../_results/sign-in.result";
+import {SignUpResult} from "../_results/sign-up.result";
 
 export abstract class IUserService
 {

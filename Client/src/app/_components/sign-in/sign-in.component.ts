@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {ComponentBase} from "../../_base/component.base";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {IUserService} from "../../_interfaces/i.user.service";
-import {SignInViewModel} from "../../_viewModels/sign.in.view.model";
+import {SignInViewModel} from "../../_viewModels/sign-in.view-model";
 
 @Component({
 	           selector: 'app-sign-in',

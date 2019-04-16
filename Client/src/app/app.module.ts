@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from "@angular/common/http";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 import
@@ -14,27 +14,9 @@ import
 	SignInComponent,
 	SignUpComponent,
 	MenuButtonComponent,
-	TestPolygonComponent
+	TestPolygonComponent,
+	LeaveConfirmationDialogComponent,
 } from "./_components/components";
-
-import
-{
-	MatButtonModule,
-	MatIconModule,
-	MatMenuModule,
-	MatTabsModule,
-	MatFormFieldModule,
-	MatInputModule,
-	MatBottomSheetModule,
-	MatSelectModule,
-	MatTreeModule,
-	MatStepperModule,
-	MatBadgeModule,
-	MatCardModule,
-	MatTooltipModule,
-	MatCheckboxModule,
-	MatSlideToggleModule, MatDividerModule, MatListModule, MatChipsModule
-} from "@angular/material";
 
 import {NotificationsService} from "./_services/notifications.service";
 import {IUserService} from "./_interfaces/i.user.service";
@@ -45,6 +27,8 @@ import {ITestService} from "./_interfaces/i.test.service";
 import {TestServiceMock} from "./_services/test.service.mock";
 import {UnsavedDataGuard} from "./_guards/unsaved-data.guard";
 import {SignedUserOnlyGuard} from "./_guards/signed-user-only.guard";
+import {MaterialModule} from "./_modules/material.module";
+import { PassComponent } from './_components/pass/pass.component';
 
 @NgModule({
 	          declarations: [
@@ -56,7 +40,9 @@ import {SignedUserOnlyGuard} from "./_guards/signed-user-only.guard";
 		          SignUpComponent,
 		          MenuButtonComponent,
 		          TestPolygonComponent,
-		          StopPropagationDirective
+		          StopPropagationDirective,
+		          LeaveConfirmationDialogComponent,
+		          PassComponent,
 	          ],
 	          imports: [
 		          BrowserModule,
@@ -65,24 +51,8 @@ import {SignedUserOnlyGuard} from "./_guards/signed-user-only.guard";
 		          HttpClientModule,
 		          ReactiveFormsModule,
 		          FlexLayoutModule,
-		          MatButtonModule,
-		          MatMenuModule,
-		          MatIconModule,
-		          MatTabsModule,
-		          MatFormFieldModule,
-		          MatInputModule,
-		          MatBottomSheetModule,
-		          MatSelectModule,
-		          MatTreeModule,
-		          MatStepperModule,
-		          MatBadgeModule,
-		          MatCardModule,
-		          MatTooltipModule,
-		          MatCheckboxModule,
-		          MatSlideToggleModule,
-		          MatDividerModule,
-		          MatListModule,
-		          MatChipsModule
+		          MaterialModule,
+		          FormsModule
 	          ],
 	          providers: [
 		          {provide: IUserService, useClass: UserServiceMock},
@@ -93,7 +63,8 @@ import {SignedUserOnlyGuard} from "./_guards/signed-user-only.guard";
 	          ],
 	          entryComponents: [
 		          SignInComponent,
-		          SignUpComponent
+		          SignUpComponent,
+		          LeaveConfirmationDialogComponent
 	          ],
 	          bootstrap: [AppComponent]
           })

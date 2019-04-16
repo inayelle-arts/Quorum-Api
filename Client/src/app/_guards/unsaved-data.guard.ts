@@ -1,23 +1,36 @@
 import {ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {ComponentBase} from "../_base/component.base";
-import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
+import {MatDialog} from "@angular/material";
+import {
+	LeaveConfirmationDialogComponent,
+	LeaveConfirmationDialogResult
+} from "../_components/leave-confirmation-dialog/leave-confirmation-dialog.component";
 
 @Injectable()
 export class UnsavedDataGuard implements CanDeactivate<ComponentBase>
 {
-	canDeactivate(component: ComponentBase,
-	              currentRoute: ActivatedRouteSnapshot,
-	              currentState: RouterStateSnapshot,
-	              nextState?: RouterStateSnapshot
-	): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
+	public constructor(private readonly dialog: MatDialog)
 	{
-		if (component.hasUnsavedData)
+	}
+	
+	public async canDeactivate(
+		component: ComponentBase,
+		currentRoute: ActivatedRouteSnapshot,
+		currentState: RouterStateSnapshot,
+		nextState?: RouterStateSnapshot
+	): Promise<boolean | UrlTree>
+	{
+		if (!component.hasUnsavedData)
 		{
-			return confirm('Are you sure to leave unsaved progress?');
+			return true;
 		}
 		
-		return true;
+		const dialogRef = this.dialog.open(LeaveConfirmationDialogComponent);
+		
+		const result = (await dialogRef.afterClosed().toPromise()) as LeaveConfirmationDialogResult;
+		
+		return result.wantToLeave;
 	}
 	
 }

@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 import {UserType} from "../../_enums/usertype";
 import {IUserService} from "../../_interfaces/i.user.service";
-import {SignUpViewModel} from "../../_viewModels/sign.up.view.model";
+import {SignUpViewModel} from "../../_viewModels/sign-up.view-model";
 
 @Component({
 	           selector: 'app-sign-up',
@@ -65,6 +65,8 @@ export class SignUpComponent extends ComponentBase implements OnInit
 		    .subscribe(result => {
 			    console.log(result);
 		    });
+		
+		
 	}
 	
 	private _createForm(): FormGroup
