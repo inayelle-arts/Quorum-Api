@@ -1,0 +1,8 @@
+NAME=$1
+
+if [ -z "$NAME" ]; then
+	echo "addmigration <name>"
+	exit 1
+fi
+
+dotnet ef migrations add $NAME -s ../../DataApi -c EfDataAccessContext
