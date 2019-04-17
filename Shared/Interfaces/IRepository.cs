@@ -1,17 +1,18 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Quorum.Shared.Interfaces
 {
 	public interface IRepository<TEntity> where TEntity : class, IEntity, new()
 	{
-		TEntity Get(int id);
+		Task<TEntity> GetAsync(int id);
 
-		IEnumerable<TEntity> GetAll();
+		Task<ICollection<TEntity>> GetAll();
 
-		void Update(TEntity entity);
+		Task<bool> Update(TEntity entity);
 
-		void Delete(TEntity entity);
+		Task<bool> Delete(TEntity entity);
 
-		void Create(TEntity entity);
+		Task<int> Create(TEntity entity);
 	}
 }

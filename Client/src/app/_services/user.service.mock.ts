@@ -6,7 +6,6 @@ import API_URLS from "../_configurations/app.api.urls";
 import {NotImplementedException} from "../_exceptions/not.implemented.exception";
 
 import {Injectable} from "@angular/core";
-import {User} from "../_entities/user";
 import {SignUpViewModel} from "../_viewModels/sign-up.view-model";
 import {SignInViewModel} from "../_viewModels/sign-in.view-model";
 import {SignUpResult} from "../_results/sign-up.result";
@@ -17,11 +16,11 @@ export class UserServiceMock implements IUserService
 {
 	private readonly url: string = API_URLS.user;
 	
-	private _currentUser: User = {email: 'qweasd'};
+	private _currentUser = {email: 'inayelle.arts@gmail.com'};
 	
 	constructor(private readonly http: HttpClient)
 	{
-	
+		
 	}
 	
 	public getUserTypes(): UserType[]
@@ -44,8 +43,18 @@ export class UserServiceMock implements IUserService
 		this._currentUser = null;
 	}
 	
-	get current(): User
+	public get currentUser(): any
 	{
 		return this._currentUser;
+	}
+	
+	public get isUser(): boolean
+	{
+		return this._currentUser != null;
+	}
+	
+	public get isAnonymous(): boolean
+	{
+		return !this.isUser;
 	}
 }

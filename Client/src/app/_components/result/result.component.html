@@ -1,0 +1,25 @@
+<div class="page-center" *ngIf="!loaded">
+    <mat-spinner diameter="40">
+    </mat-spinner>
+</div>
+<div class="container-center" *ngIf="loaded">
+    <div class="w-50">
+        <div class="w-100">
+            <h1>{{resultModel.name}}</h1>
+            <h3>{{resultModel.userScore}}/{{resultModel.maximumScore}}</h3>
+        </div>
+
+        <mat-vertical-stepper>
+            <mat-step *ngFor="let question of resultModel.questions" [label]="question.content">
+                <mat-list>
+                    <mat-list-item *ngFor="let answer of question.answers" style="margin-bottom: 15px">
+                        <mat-card class="w-100" [class.correct]="answer.isCorrect"
+                                                [class.invalid]="!answer.isCorrect && answer.isUserCorrect">
+                            {{answer.content}}
+                        </mat-card>
+                    </mat-list-item>
+                </mat-list>
+            </mat-step>
+        </mat-vertical-stepper>
+    </div>
+</div>

@@ -1,5 +1,5 @@
-export interface CreateTestResult
+import {IResult} from "../_interfaces/result.interface";
+
+export interface CreateTestResult extends IResult
 {
-	ok: boolean;
-	message: string;
 }

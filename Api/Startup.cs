@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Quorum.Api.Extensions;
+using Quorum.DataAccess.Ef.Extensions;
 using Quorum.Shared.Auxiliary;
 
 namespace Quorum.Api
@@ -22,18 +23,25 @@ namespace Quorum.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddRouteAnalyzer();
+
 			services.AddSingleton(Configuration);
+
 			services.AddAngularCors(Configuration);
-			services.AddMvc();
+
+			services.AddModels();
+
+			services.AddAutoMapper();
+
+			services.AddEfDataAccess(Configuration.GetConnectionString("Default"));
+
+			services.AddMvcWithOptions();
 		}
 
 		public void Configure(IApplicationBuilder app)
 		{
 			app.UseAngularCors();
-			app.UseMvc(router =>
-			{
-				router.MapRouteAnalyzer("/routes");
-			});
+
+			app.UseMvc(router => { router.MapRouteAnalyzer("/routes"); });
 		}
 	}
 }

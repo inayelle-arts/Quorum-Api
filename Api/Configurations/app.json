@@ -1,6 +1,6 @@
 {
     "ConnectionStrings": {
-        "PostgreSql-Default": ""
+        "Default": "Server=127.0.0.1; Port=5432; Database=quorum_db; User Id=ina; Password=-leq!13==;"
     },
     "Cors": {
         "Angular": {

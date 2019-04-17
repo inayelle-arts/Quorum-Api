@@ -10,10 +10,4 @@
       <PackageReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Base" />
-      <Folder Include="Details" />
-      <Folder Include="Extensions" />
-    </ItemGroup>
-
 </Project>

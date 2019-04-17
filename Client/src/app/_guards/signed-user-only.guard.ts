@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree} from "@angular/router";
-import {Observable} from "rxjs";
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from "@angular/router";
 import {IUserService} from "../_interfaces/i.user.service";
 
 @Injectable()
@@ -16,8 +15,8 @@ export class SignedUserOnlyGuard implements CanActivate
 	public canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
-	): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
+	): boolean
 	{
-		return this._userService.current !== null;
+		return this._userService.isUser;
 	}
 }

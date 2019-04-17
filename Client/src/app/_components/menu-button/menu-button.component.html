@@ -3,23 +3,23 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #nav>
-        <button mat-menu-item routerLink="new" *ngIf="_userService.current">
+        <button mat-menu-item routerLink="new" *ngIf="_userService.isUser">
             <mat-icon class="nav-link-icon">content_paste</mat-icon>
             <span class="nav-link-text">Create</span>
         </button>
-        <button mat-menu-item (click)="onSignInClick()" *ngIf="!_userService.current">
+        <button mat-menu-item (click)="onSignInClick()" *ngIf="_userService.isAnonymous">
             <mat-icon class="nav-link-icon">arrow_forward</mat-icon>
             <span class="nav-link-text">Sign in</span>
         </button>
-        <button mat-menu-item (click)="onSignUpClick()" *ngIf="!_userService.current">
+        <button mat-menu-item (click)="onSignUpClick()" *ngIf="_userService.isAnonymous">
             <mat-icon class="nav-link-icon">account_box</mat-icon>
             <span class="nav-link-text">Sign up</span>
         </button>
-        <button mat-menu-item routerLink="profile" *ngIf="_userService.current">
+        <button mat-menu-item routerLink="profile" *ngIf="_userService.isUser">
             <mat-icon class="nav-link-icon">account_box</mat-icon>
             <span class="nav-link-text">Profile</span>
         </button>
-        <button mat-menu-item (click)="onLogoutClick()" *ngIf="_userService.current">
+        <button mat-menu-item (click)="onLogoutClick()" *ngIf="_userService.isUser">
             <mat-icon class="nav-link-icon">arrow_back</mat-icon>
             <span class="nav-link-text">Leave</span>
         </button>

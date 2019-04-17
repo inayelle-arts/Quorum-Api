@@ -10,12 +10,13 @@ import
 	AppComponent,
 	HeaderComponent,
 	HomeComponent,
-	NewTestComponent,
+	NewComponent,
 	SignInComponent,
 	SignUpComponent,
 	MenuButtonComponent,
 	TestPolygonComponent,
 	LeaveConfirmationDialogComponent,
+	ResultComponent
 } from "./_components/components";
 
 import {NotificationsService} from "./_services/notifications.service";
@@ -28,46 +29,52 @@ import {TestServiceMock} from "./_services/test.service.mock";
 import {UnsavedDataGuard} from "./_guards/unsaved-data.guard";
 import {SignedUserOnlyGuard} from "./_guards/signed-user-only.guard";
 import {MaterialModule} from "./_modules/material.module";
-import { PassComponent } from './_components/pass/pass.component';
+import {PassComponent} from './_components/pass/pass.component';
+import {IPassService} from "./_interfaces/pass.service.interface";
+import {PassService} from "./_services/pass.service";
+import {ResultService} from "./_services/result.service";
 
 @NgModule({
-	          declarations: [
-		          AppComponent,
-		          HeaderComponent,
-		          HomeComponent,
-		          NewTestComponent,
-		          SignInComponent,
-		          SignUpComponent,
-		          MenuButtonComponent,
-		          TestPolygonComponent,
-		          StopPropagationDirective,
-		          LeaveConfirmationDialogComponent,
-		          PassComponent,
-	          ],
-	          imports: [
-		          BrowserModule,
-		          BrowserAnimationsModule,
-		          AppRoutingModule,
-		          HttpClientModule,
-		          ReactiveFormsModule,
-		          FlexLayoutModule,
-		          MaterialModule,
-		          FormsModule
-	          ],
-	          providers: [
-		          {provide: IUserService, useClass: UserServiceMock},
-		          {provide: ITestService, useClass: TestServiceMock},
-		          NotificationsService,
-		          UnsavedDataGuard,
-		          SignedUserOnlyGuard
-	          ],
-	          entryComponents: [
-		          SignInComponent,
-		          SignUpComponent,
-		          LeaveConfirmationDialogComponent
-	          ],
-	          bootstrap: [AppComponent]
-          })
+	declarations: [
+		AppComponent,
+		HeaderComponent,
+		HomeComponent,
+		NewComponent,
+		SignInComponent,
+		SignUpComponent,
+		MenuButtonComponent,
+		TestPolygonComponent,
+		StopPropagationDirective,
+		LeaveConfirmationDialogComponent,
+		PassComponent,
+		ResultComponent,
+	],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		AppRoutingModule,
+		HttpClientModule,
+		ReactiveFormsModule,
+		FlexLayoutModule,
+		MaterialModule,
+		FormsModule
+	],
+	providers: [
+		{provide: IUserService, useClass: UserServiceMock},
+		{provide: ITestService, useClass: TestServiceMock},
+		{provide: IPassService, useClass: PassService},
+		ResultService,
+		NotificationsService,
+		UnsavedDataGuard,
+		SignedUserOnlyGuard
+	],
+	entryComponents: [
+		SignInComponent,
+		SignUpComponent,
+		LeaveConfirmationDialogComponent
+	],
+	bootstrap: [AppComponent]
+})
 export class AppModule
 {
 }

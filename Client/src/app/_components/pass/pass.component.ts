@@ -1,52 +1,76 @@
 import {Component, OnInit} from '@angular/core';
 import {ComponentBase} from '../../_base/component.base';
-import {ITestService} from '../../_interfaces/i.test.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {PassTestViewModel} from '../../_viewModels/pass-test.view-model';
-import {ActivatedRoute} from '@angular/router';
-import {PassQuestionViewModel} from '../../_viewModels/pass-question.view-model';
-import {PassAnswerViewModel} from '../../_viewModels/pass-answer.view-model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {IPassService} from "../../_interfaces/pass.service.interface";
+import {ChallengeTestResultModel} from "./_resultModels/challenge-test.result-model";
+import {ChallengeQuestionResultModel} from "./_resultModels/challenge-question.result-model";
+import {ChallengeAnswerResultModel} from "./_resultModels/challenge-answer.result-model";
+import {NotificationsService} from "../../_services/notifications.service";
+import {ChallengedTestViewModel} from "./_viewModels/challenged-test.view-model";
 
 @Component({
-	           selector: 'app-pass',
-	           templateUrl: './pass.component.html',
-	           styleUrls: ['./pass.component.scss']
-           })
+	selector: 'app-pass',
+	templateUrl: './pass.component.html',
+	styleUrls: ['./pass.component.scss']
+})
 export class PassComponent extends ComponentBase implements OnInit
 {
+	private readonly _passService: IPassService;
+	private readonly _notifyService: NotificationsService;
+	
 	private readonly _builderService: FormBuilder;
 	private readonly _route: ActivatedRoute;
-	private readonly _testService: ITestService;
+	private readonly _router: Router;
 	
-	private _viewModel: PassTestViewModel;
-	private _loaded: boolean;
+	
+	private _viewModel: ChallengeTestResultModel;
+	private _loaded: boolean = false;
+	private _isSent: boolean = false;
 	
 	public form: FormGroup;
 	
 	public constructor(
+		passService: IPassService,
+		notifyService: NotificationsService,
 		builderService: FormBuilder,
 		route: ActivatedRoute,
-		testService: ITestService
+		router: Router
 	)
 	{
 		super();
 		
+		this._passService = passService;
+		this._notifyService = notifyService;
 		this._builderService = builderService;
 		this._route = route;
-		this._testService = testService;
-		this._loaded = false;
+		this._router = router;
 	}
 	
 	public ngOnInit(): void
 	{
-		this._testService
-		    .challenge(this._route.data['id'])
-		    .subscribe(result => this._onTestLoaded(result));
+		const params = this._route.snapshot.paramMap;
+		
+		this._passService
+			.getById(Number(params.get('id')))
+			.subscribe(result => this._onTestLoaded(result));
 	}
 	
 	public onSubmit(): void
 	{
-		console.log(this.form.value);
+		this._isSent = true;
+		const viewModel = this.form.value as ChallengedTestViewModel;
+		
+		viewModel.timeSpent = 0;
+		
+		this._notifyService.message('Posting your results...');
+		
+		this._passService.postChallengeResult(viewModel)
+			.subscribe(result =>
+			{
+				this._notifyService.message(`Success!`);
+				this._router.navigate([`/result/${result}`]);
+			});
 	}
 	
 	public get loaded(): boolean
@@ -54,17 +78,22 @@ export class PassComponent extends ComponentBase implements OnInit
 		return this._loaded;
 	}
 	
-	public get hasUnsavedData(): boolean
+	public get isSent(): boolean
 	{
-		return true;
+		return this._isSent;
 	}
 	
-	public get viewModel(): PassTestViewModel
+	public get hasUnsavedData(): boolean
+	{
+		return !this.isSent;
+	}
+	
+	public get viewModel(): ChallengeTestResultModel
 	{
 		return this._viewModel;
 	}
 	
-	private _onTestLoaded(viewModel: PassTestViewModel): void
+	private _onTestLoaded(viewModel: ChallengeTestResultModel): void
 	{
 		this._viewModel = viewModel;
 		
@@ -73,46 +102,46 @@ export class PassComponent extends ComponentBase implements OnInit
 		this._loaded = true;
 	}
 	
-	private _createFormGroup(test: PassTestViewModel): FormGroup
+	private _createFormGroup(test: ChallengeTestResultModel): FormGroup
 	{
 		const questions = this._builderService.array([]);
 		
 		test.questions.forEach(q =>
-		                       {
-			                       questions.push(this._createQuestionGroup(q));
-		                       });
+		{
+			questions.push(this._createQuestionGroup(q));
+		});
 		
 		return this._builderService
-		           .group(
-			           {
-				           id: test.id,
-				           time: 0,
-				           questions: questions
-			           });
+			.group(
+				{
+					sourceTestId: test.id,
+					timeSpent: 0,
+					questions: questions
+				});
 	}
 	
-	private _createQuestionGroup(q: PassQuestionViewModel): FormGroup
+	private _createQuestionGroup(q: ChallengeQuestionResultModel): FormGroup
 	{
 		const answers = this._builderService.array([]);
 		
 		q.answers.forEach(a =>
-		                  {
-			                  answers.push(this._createAnswerGroup(a));
-		                  });
+		{
+			answers.push(this._createAnswerGroup(a));
+		});
 		
 		return this._builderService.group(
 			{
-				id: q.id,
+				sourceQuestionId: q.id,
 				answers: answers
 			}
 		);
 	}
 	
-	private _createAnswerGroup(a: PassAnswerViewModel): FormGroup
+	private _createAnswerGroup(a: ChallengeAnswerResultModel): FormGroup
 	{
 		return this._builderService.group(
 			{
-				id: a.id,
+				sourceAnswerId: a.id,
 				isCorrect: false
 			}
 		);

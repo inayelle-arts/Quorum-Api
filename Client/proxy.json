@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "https://reqres.in/api/users",
+        "target": "http://127.0.0.1",
         "secure": false
     }
 }
