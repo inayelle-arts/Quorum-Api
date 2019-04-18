@@ -2,9 +2,9 @@ using System;
 using System.Linq.Expressions;
 using AutoMapper;
 
-namespace Quorum.DataApi.Extensions
+namespace Quorum.Shared.Extensions
 {
-	internal static class MappingExpressionExtensions
+	public static class MappingExpressionExtensions
 	{
 		public static IMappingExpression<TSource, TTarget> ForField<TSource, TTarget, TSourceType, TTargetType>
 		(

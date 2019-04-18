@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Quorum.BusinessCore.Interfaces;
 using Quorum.DataApi.Controllers.Result.ResultModels;
 using Quorum.DataApi.Extensions;
+using Quorum.Shared.Extensions;
 
 namespace Quorum.DataApi.Controllers.Result
 {

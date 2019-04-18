@@ -1,11 +1,14 @@
+using System.Reflection;
 using AspNetCore.RouteAnalyzer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quorum.BusinessCore.Models.Challenge;
 using Quorum.DataApi.Enums;
 using Quorum.DataApi.Extensions;
 using Quorum.Shared.Auxiliary;
+using Quorum.Shared.Extensions;
 
 namespace Quorum.DataApi
 {
@@ -17,7 +20,7 @@ namespace Quorum.DataApi
 		public Startup(IHostingEnvironment environment)
 		{
 			Environment   = Require.NotNull(environment, nameof(environment));
-			Configuration = Environment.GetConfiguration();
+			Configuration = environment.GetConfiguration();
 		}
 
 		public void ConfigureServices(IServiceCollection services)
@@ -26,20 +29,24 @@ namespace Quorum.DataApi
 
 			services.AddSingleton(Configuration);
 
-			services.AddAngularCors(Configuration);
+			services.AddClientCors(Configuration);
 
-			services.AddModels();
+			services.AddModels(typeof(ChallengeModel).Assembly);
 
-			services.AddAutoMapper();
+			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 			services.AddDataProvider(DataProvider.EntityFramework, Configuration.GetConnectionString("Quorum_EF"));
+
+			services.AddJwtAuthentication(Configuration);
 
 			services.AddApiMvc();
 		}
 
 		public void Configure(IApplicationBuilder app)
 		{
-			app.UseAngularCors();
+			app.UseClientCors();
+
+			app.UseAuthentication();
 
 			app.UseMvc(router => { router.MapRouteAnalyzer("/routes"); });
 		}

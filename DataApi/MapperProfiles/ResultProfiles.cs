@@ -1,7 +1,7 @@
 using AutoMapper;
 using Quorum.BusinessCore.Entities;
 using Quorum.DataApi.Controllers.Result.ResultModels;
-using Quorum.DataApi.Extensions;
+using Quorum.Shared.Extensions;
 
 namespace Quorum.DataApi.MapperProfiles
 {

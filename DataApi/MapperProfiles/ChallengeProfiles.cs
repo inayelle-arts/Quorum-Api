@@ -3,6 +3,7 @@ using Quorum.BusinessCore.Entities;
 using Quorum.DataApi.Controllers.Challenge.ResultsModels;
 using Quorum.DataApi.Controllers.Challenge.ViewModels;
 using Quorum.DataApi.Extensions;
+using Quorum.Shared.Extensions;
 
 namespace Quorum.DataApi.MapperProfiles
 {

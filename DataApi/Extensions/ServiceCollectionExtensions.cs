@@ -1,9 +1,12 @@
 using System;
 using System.Reflection;
+using System.Text;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Quorum.BusinessCore.Models.Challenge;
 using Quorum.DataAccess.Ef.Extensions;
 using Quorum.DataApi.Enums;
@@ -13,47 +16,12 @@ namespace Quorum.DataApi.Extensions
 {
 	internal static class ServiceCollectionExtensions
 	{
-		private const string ModelPostfix = "Model";
-
-		public static void AddAngularCors(this IServiceCollection services, IConfiguration configuration)
-		{
-			var policy = new CorsPolicyBuilder()
-			             .WithOrigins(configuration["Cors:Angular:Host"])
-			             .AllowAnyHeader()
-			             .AllowAnyMethod()
-			             .Build();
-
-			services.AddCors(cors => cors.AddPolicy("Angular", policy));
-		}
-
 		public static void AddApiMvc(this IServiceCollection services)
 		{
 			services.AddMvc().AddJsonOptions(options =>
 					options.SerializerSettings
 					       .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 			);
-		}
-
-		public static void AddAutoMapper(this IServiceCollection services)
-		{
-			Mapper.Initialize(config => { config.AddProfiles(Assembly.GetExecutingAssembly()); });
-
-			var mapper = new Mapper(Mapper.Configuration);
-
-			services.AddSingleton<IMapper>(mapper);
-
-			EntityExtensions.Mapper = mapper;
-		}
-
-		public static void AddModels(this IServiceCollection services)
-		{
-			var modelTypes = Assembly.GetAssembly(typeof(ChallengeModel))
-			                         .GetTypesWithPostfix(ModelPostfix);
-
-			foreach (var modelType in modelTypes)
-			{
-				services.AddScoped(modelType);
-			}
 		}
 
 		public static void AddDataProvider(this IServiceCollection services,
@@ -72,6 +40,33 @@ namespace Quorum.DataApi.Extensions
 					throw new NotImplementedException($"Unimplemented {provider} provider");
 				}
 			}
+		}
+
+		public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+		{
+			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+			        .AddJwtBearer(options =>
+			        {
+				        options.RequireHttpsMetadata      = false;
+				        options.TokenValidationParameters = configuration.GetValidationParameters();
+			        });
+		}
+
+		private static TokenValidationParameters GetValidationParameters(this IConfiguration configuration)
+		{
+			var signKeyBytes = Encoding.UTF8.GetBytes(configuration["Authentication:SignKey"]);
+			var signKey      = new SymmetricSecurityKey(signKeyBytes);
+
+			return new TokenValidationParameters
+			{
+					ValidateIssuer           = true,
+					ValidateAudience         = true,
+					ValidateLifetime         = true,
+					ValidateIssuerSigningKey = true,
+					ValidIssuer              = configuration["Authentication:Issuer"],
+					ValidAudience            = configuration["Authentication:Audience"],
+					IssuerSigningKey         = signKey
+			};
 		}
 	}
 }

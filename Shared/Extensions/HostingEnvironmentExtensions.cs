@@ -2,7 +2,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace Quorum.DataApi.Extensions
+namespace Quorum.Shared.Extensions
 {
 	public static class HostingEnvironmentExtensions
 	{

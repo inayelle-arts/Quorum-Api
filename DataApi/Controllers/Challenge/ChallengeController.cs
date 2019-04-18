@@ -7,6 +7,7 @@ using Quorum.DataApi.Controllers.Challenge.ResultsModels;
 using Quorum.DataApi.Controllers.Challenge.ViewModels;
 using Quorum.DataApi.Extensions;
 using Quorum.DataApi.Filters;
+using Quorum.Shared.Extensions;
 
 namespace Quorum.DataApi.Controllers.Challenge
 {

@@ -2,9 +2,9 @@ using AutoMapper;
 using Quorum.Shared.Auxiliary;
 using Quorum.Shared.Interfaces;
 
-namespace Quorum.DataApi.Extensions
+namespace Quorum.Shared.Extensions
 {
-	internal static class EntityExtensions
+	public static class EntityExtensions
 	{
 		private static IMapper _mapper;
 
