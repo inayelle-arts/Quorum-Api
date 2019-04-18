@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Quorum.BusinessCore.Entities;
+using Quorum.Entities;
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.DataApi.Controllers.Challenge.ResultsModels

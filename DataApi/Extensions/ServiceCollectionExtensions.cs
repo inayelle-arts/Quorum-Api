@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Quorum.BusinessCore.Models.Challenge;
-using Quorum.DataAccess.Ef.Extensions;
+using Quorum.DataAccess.EfDataProvider.Extensions;
 using Quorum.DataApi.Enums;
 using Quorum.Shared.Extensions;
 

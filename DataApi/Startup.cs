@@ -1,5 +1,4 @@
 using System.Reflection;
-using AspNetCore.RouteAnalyzer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,20 +24,15 @@ namespace Quorum.DataApi
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddRouteAnalyzer();
-
 			services.AddSingleton(Configuration);
+
+			services.AddModels(typeof(ChallengeModel).Assembly);
+			services.AddAutoMapper(Assembly.GetExecutingAssembly());
+			services.AddDataProvider(DataProvider.EntityFramework, Configuration.GetConnectionString("Quorum_EF"));
 
 			services.AddClientCors(Configuration);
 
-			services.AddModels(typeof(ChallengeModel).Assembly);
-
-			services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
-			services.AddDataProvider(DataProvider.EntityFramework, Configuration.GetConnectionString("Quorum_EF"));
-
 			services.AddJwtAuthentication(Configuration);
-
 			services.AddApiMvc();
 		}
 
@@ -48,7 +42,7 @@ namespace Quorum.DataApi
 
 			app.UseAuthentication();
 
-			app.UseMvc(router => { router.MapRouteAnalyzer("/routes"); });
+			app.UseMvc();
 		}
 	}
 }

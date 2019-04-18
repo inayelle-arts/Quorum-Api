@@ -20,7 +20,7 @@ namespace Quorum.DataApi.Controllers.Result
 		[HttpGet("{id}")]
 		public async Task<ActionResult<PassedTestResultModel>> Get(int id)
 		{
-			var challengedTest = await _challengedTests.GetAsync(id);
+			var challengedTest = await _challengedTests.GetByIdAsync(id);
 
 			if (challengedTest == null)
 			{

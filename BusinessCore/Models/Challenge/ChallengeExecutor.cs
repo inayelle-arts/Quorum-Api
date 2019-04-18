@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Quorum.BusinessCore.Entities;
+using Quorum.Entities;
 
 namespace Quorum.BusinessCore.Models.Challenge
 {

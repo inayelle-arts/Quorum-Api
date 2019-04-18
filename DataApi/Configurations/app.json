@@ -10,7 +10,6 @@
     "Authentication": {
         "Audience": "Quorum.Client",
         "Issuer": "Quorum.Auth",
-        "SignKey": "089jIUH9877!23kw+81#jmNNl",
-        "LifeTime": 15
+        "SignKey": "089jIUH9877!23kw+81#jmNNl"
     }
 }

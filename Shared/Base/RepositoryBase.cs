@@ -16,7 +16,7 @@ namespace Quorum.Shared.Base
 			this.context = context;
 		}
 
-		public virtual async Task<TEntity> GetAsync(int id)
+		public virtual async Task<TEntity> GetByIdAsync(int id)
 		{
 			return await context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id);
 		}

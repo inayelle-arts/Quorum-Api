@@ -1,9 +1,7 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Quorum.BusinessCore.Interfaces;
 using Quorum.DataApi.Controllers.Test.ViewModels;
-using Quorum.DataApi.Extensions;
 using Quorum.DataApi.Filters;
 using Quorum.Shared.Extensions;
 
@@ -21,9 +19,9 @@ namespace Quorum.DataApi.Controllers.Test
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<BusinessCore.Entities.Test>> Post([FromBody] CreateTestViewModel test)
+		public async Task<ActionResult<Entities.Test>> Post([FromBody] CreateTestViewModel test)
 		{
-			var entity = test.To<BusinessCore.Entities.Test>();
+			var entity = test.To<Entities.Test>();
 
 			await _testRepository.Create(entity);
 

@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Quorum.BusinessCore.Entities;
 using Quorum.BusinessCore.Interfaces;
 using Quorum.BusinessCore.Models.Challenge;
 using Quorum.DataApi.Controllers.Challenge.ResultsModels;
 using Quorum.DataApi.Controllers.Challenge.ViewModels;
-using Quorum.DataApi.Extensions;
 using Quorum.DataApi.Filters;
+using Quorum.Entities;
 using Quorum.Shared.Extensions;
 
 namespace Quorum.DataApi.Controllers.Challenge
@@ -29,7 +28,7 @@ namespace Quorum.DataApi.Controllers.Challenge
 		[HttpGet("{id}")]
 		public async Task<ActionResult<ChallengeTestResultModel>> Get(int id)
 		{
-			var test = await _tests.GetAsync(id);
+			var test = await _tests.GetByIdAsync(id);
 
 			if (test == null)
 			{

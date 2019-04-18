@@ -1,20 +1,20 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Quorum.BusinessCore.Entities;
 using Quorum.BusinessCore.Interfaces;
-using Quorum.DataAccess.Ef.Base;
+using Quorum.Entities;
+using Quorum.Shared.Base;
 
-namespace Quorum.DataAccess.Ef.Repositories
+namespace Quorum.DataAccess.EfDataProvider.Repositories
 {
-	public sealed class ChallengedTestRepository : RepositoryBase<ChallengedTest, EfDataAccessContext>,
+	public sealed class ChallengedTestRepository : RepositoryBase<ChallengedTest, EfDataContext>,
 	                                               IChallengedTestRepository
 	{
-		public ChallengedTestRepository(EfDataAccessContext context) : base(context)
+		public ChallengedTestRepository(EfDataContext context) : base(context)
 		{
 		}
 
-		public override async Task<ChallengedTest> GetAsync(int id)
+		public override async Task<ChallengedTest> GetByIdAsync(int id)
 		{
 			return await context.PassedTests
 			                    .Where(t => t.Id == id)

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using Quorum.BusinessCore.Entities;
 using Quorum.BusinessCore.Interfaces;
+using Quorum.Entities;
 
 namespace Quorum.BusinessCore.Models.Challenge
 {
@@ -17,7 +17,7 @@ namespace Quorum.BusinessCore.Models.Challenge
 
 		public async Task<int> ChallengeTest(ChallengedTest challengedTest)
 		{
-			var test = await _tests.GetAsync(challengedTest.SourceTestId);
+			var test = await _tests.GetByIdAsync(challengedTest.SourceTestId);
 
 			var challengeExecutor = new ChallengeExecutor();
 			
