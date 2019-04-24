@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.DataApi.Controllers.Challenge.ViewModels
@@ -6,8 +7,6 @@ namespace Quorum.DataApi.Controllers.Challenge.ViewModels
 	public sealed class ChallengedTestViewModel : IDataTransferObject
 	{
 		public int SourceTestId { get; set; }
-
-		public int TimeSpent { get; set; }
 
 		//TODO: passed by whom?
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using Quorum.Entities;
 using Quorum.Shared.Interfaces;
 
@@ -8,8 +9,8 @@ namespace Quorum.DataApi.Controllers.Challenge.ResultsModels
 	{
 		public int Id { get; set; }
 
-		public string Name      { get; set; }
-		public int    TimeLimit { get; set; }
+		public string Name        { get; set; }
+		public string Description { get; set; }
 
 		public ICollection<Tag> Tags { get; set; }
 
