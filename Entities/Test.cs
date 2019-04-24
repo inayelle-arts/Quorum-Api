@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.Entities
@@ -8,7 +9,7 @@ namespace Quorum.Entities
 		public int Id { get; set; }
 
 		public string Name      { get; set; }
-		public int    TimeLimit { get; set; }
+		public string Description { get; set; }
 
 		public ICollection<Tag>      Tags      { get; set; }
 		public ICollection<Question> Questions { get; set; }
