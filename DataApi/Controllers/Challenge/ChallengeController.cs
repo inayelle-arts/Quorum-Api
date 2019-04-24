@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
+
 using Quorum.BusinessCore.Interfaces;
 using Quorum.BusinessCore.Models.Challenge;
 using Quorum.DataApi.Controllers.Challenge.ResultsModels;
@@ -39,14 +41,14 @@ namespace Quorum.DataApi.Controllers.Challenge
 		}
 
 		//post challenge results
-		public async Task<ActionResult<int>> Post([FromBody] ChallengedTestViewModel test)
+		public async Task<ActionResult<ChallengeResultModel>> Post([FromBody] ChallengedTestViewModel test)
 		{
 			var entity = test.To<ChallengedTest>();
-			
+
 			try
 			{
 				var resultId = await _model.ChallengeTest(entity);
-				return Ok(resultId);
+				return new ChallengeResultModel{Id = resultId};
 			}
 			catch
 			{
