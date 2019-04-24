@@ -1,5 +1,10 @@
 /.idea/
 *.log
 *.DotSettings*
+
 **/bin/
 **/obj/
+
+/.vscode/*
+!/.vscode/tasks.json
+!/.vscode/launch.json

@@ -1,0 +1,43 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Debug DataApi",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "data-api-build",
+			"program": "${workspaceFolder}/DataApi/bin/Debug/netcoreapp2.2/Quorum.DataApi.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/DataApi",
+			"stopAtEntry": false,
+			"env": {
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			},
+			"logging": {
+				"engineLogging": false,
+				"moduleLoad": false,
+				"exceptions": false,
+				"browserStdOut": false
+			},
+		},
+		{
+			"name": "Debug IdentityApi",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "identity-api-build",
+			"program": "${workspaceFolder}/IdentityApi/bin/Debug/netcoreapp2.2/Quorum.IdentityApi.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/IdentityApi",
+			"stopAtEntry": false,
+			"env": {
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			},
+			"logging": {
+				"engineLogging": false,
+				"moduleLoad": false,
+				"exceptions": false,
+				"browserStdOut": false
+			},
+		}
+	]
+}
