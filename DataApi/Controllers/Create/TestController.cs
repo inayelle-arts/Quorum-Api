@@ -1,19 +1,21 @@
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
+
 using Quorum.BusinessCore.Interfaces;
 using Quorum.DataApi.Controllers.Test.ViewModels;
 using Quorum.DataApi.Filters;
 using Quorum.Shared.Extensions;
 
-namespace Quorum.DataApi.Controllers.Test
+namespace Quorum.DataApi.Controllers.Create
 {
-	[Route("api/test")]
+	[Route("api/create")]
 	[ModelValidationFilter]
-	public sealed class TestController : Controller
+	public sealed class CreateController : Controller
 	{
 		private readonly ITestRepository _testRepository;
 
-		public TestController(ITestRepository testRepository)
+		public CreateController(ITestRepository testRepository)
 		{
 			_testRepository = testRepository;
 		}
