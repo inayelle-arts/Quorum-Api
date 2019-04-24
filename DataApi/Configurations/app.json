@@ -3,8 +3,13 @@
         "Quorum_EF": "Server=127.0.0.1; Port=5432; Database=quorum_ef_db; User Id=quorum_user; Password=f8j40KJ)(!@;"
     },
     "Cors": {
-        "Angular": {
+        "Client": {
             "Host": "http://127.0.0.1"
         }
+    },
+    "Authentication": {
+        "Audience": "Quorum.Client",
+        "Issuer": "Quorum.Auth",
+        "SignKey": "089jIUH9877!23kw+81#jmNNl"
     }
 }

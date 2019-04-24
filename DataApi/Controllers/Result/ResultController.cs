@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Quorum.BusinessCore.Interfaces;
 using Quorum.DataApi.Controllers.Result.ResultModels;
 using Quorum.DataApi.Extensions;
+using Quorum.Shared.Extensions;
 
 namespace Quorum.DataApi.Controllers.Result
 {
@@ -19,7 +20,7 @@ namespace Quorum.DataApi.Controllers.Result
 		[HttpGet("{id}")]
 		public async Task<ActionResult<PassedTestResultModel>> Get(int id)
 		{
-			var challengedTest = await _challengedTests.GetAsync(id);
+			var challengedTest = await _challengedTests.GetByIdAsync(id);
 
 			if (challengedTest == null)
 			{

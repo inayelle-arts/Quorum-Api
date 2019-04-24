@@ -5,7 +5,7 @@ namespace Quorum.Shared.Interfaces
 {
 	public interface IRepository<TEntity> where TEntity : class, IEntity, new()
 	{
-		Task<TEntity> GetAsync(int id);
+		Task<TEntity> GetByIdAsync(int id);
 
 		Task<ICollection<TEntity>> GetAll();
 

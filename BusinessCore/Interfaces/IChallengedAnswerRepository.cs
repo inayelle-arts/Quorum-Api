@@ -1,4 +1,4 @@
-using Quorum.BusinessCore.Entities;
+using Quorum.Entities;
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.BusinessCore.Interfaces

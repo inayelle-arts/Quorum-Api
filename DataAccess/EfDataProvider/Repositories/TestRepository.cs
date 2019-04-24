@@ -1,19 +1,19 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Quorum.BusinessCore.Entities;
 using Quorum.BusinessCore.Interfaces;
-using Quorum.DataAccess.Ef.Base;
+using Quorum.Entities;
+using Quorum.Shared.Base;
 
-namespace Quorum.DataAccess.Ef.Repositories
+namespace Quorum.DataAccess.EfDataProvider.Repositories
 {
-	public sealed class TestRepository : RepositoryBase<Test, EfDataAccessContext>, ITestRepository
+	public sealed class TestRepository : RepositoryBase<Test, EfDataContext>, ITestRepository
 	{
-		public TestRepository(EfDataAccessContext context) : base(context)
+		public TestRepository(EfDataContext context) : base(context)
 		{
 		}
 
-		public override async Task<Test> GetAsync(int id)
+		public override async Task<Test> GetByIdAsync(int id)
 		{
 			return await context.Tests
 			                    .Where(t => t.Id == id)
