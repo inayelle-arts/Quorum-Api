@@ -1,17 +1,20 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
+
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.Shared.Base
 {
-	public abstract class RepositoryBase<TEntity, TContext> : IRepository<TEntity>
+	public abstract class EfRepositoryBase<TEntity, TContext> : IRepository<TEntity>
 			where TEntity : class, IEntity, new()
 			where TContext : DbContext
 	{
 		protected readonly TContext context;
 
-		protected RepositoryBase(TContext context)
+		protected EfRepositoryBase(TContext context)
 		{
 			this.context = context;
 		}
@@ -51,6 +54,15 @@ namespace Quorum.Shared.Base
 			await context.SaveChangesAsync();
 
 			return entity.Id;
+		}
+
+		public virtual async Task<IEnumerable<int>> Create(IEnumerable<TEntity> entities)
+		{
+			await context.Set<TEntity>().AddRangeAsync(entities);
+
+			await context.SaveChangesAsync();
+
+			return entities.Select(e => e.Id);
 		}
 	}
 }

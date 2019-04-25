@@ -1,13 +1,15 @@
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
+
 using Quorum.BusinessCore.Interfaces;
 using Quorum.Entities;
 using Quorum.Shared.Base;
 
 namespace Quorum.DataAccess.EfDataProvider.Repositories
 {
-	public sealed class ChallengedTestRepository : RepositoryBase<ChallengedTest, EfDataContext>,
+	public sealed class ChallengedTestRepository : EfRepositoryBase<ChallengedTest, EfDataContext>,
 	                                               IChallengedTestRepository
 	{
 		public ChallengedTestRepository(EfDataContext context) : base(context)
