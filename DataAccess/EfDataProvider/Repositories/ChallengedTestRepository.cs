@@ -18,7 +18,7 @@ namespace Quorum.DataAccess.EfDataProvider.Repositories
 
 		public override async Task<ChallengedTest> GetByIdAsync(int id)
 		{
-			return await context.PassedTests
+			return await context.ChallengedTests
 			                    .Where(t => t.Id == id)
 			                    .Include(t => t.SourceTest)
 			                    .Include(t => t.Questions)
