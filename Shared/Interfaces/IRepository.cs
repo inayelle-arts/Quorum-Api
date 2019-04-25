@@ -14,5 +14,7 @@ namespace Quorum.Shared.Interfaces
 		Task<bool> Delete(TEntity entity);
 
 		Task<int> Create(TEntity entity);
+
+		Task<IEnumerable<int>> Create(IEnumerable<TEntity> entities);
 	}
 }

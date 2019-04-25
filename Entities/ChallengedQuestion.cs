@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.Entities
@@ -14,6 +15,9 @@ namespace Quorum.Entities
 		public int UserScore  { get; set; }
 
 		public ICollection<ChallengedAnswer> Answers { get; set; }
+
+		public int 			  ChallengedTestId { get; set; }
+		public ChallengedTest ChallengedTest   { get; set; }
 
 		public ChallengedQuestion()
 		{

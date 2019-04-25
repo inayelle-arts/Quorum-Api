@@ -1,13 +1,17 @@
 using System;
 using System.Reflection;
 using System.Text;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+
 using Quorum.BusinessCore.Models.Challenge;
+using Quorum.DataAccess.AdoDataProvider.Extensions;
 using Quorum.DataAccess.EfDataProvider.Extensions;
 using Quorum.DataApi.Enums;
 using Quorum.Shared.Extensions;
@@ -33,6 +37,11 @@ namespace Quorum.DataApi.Extensions
 				case DataProvider.EntityFramework:
 				{
 					services.AddEfDataAccess(connectionString);
+					break;
+				}
+				case DataProvider.AdoNet:
+				{
+					services.AddAdoDataAccess(connectionString);
 					break;
 				}
 				default:
