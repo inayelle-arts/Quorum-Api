@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
@@ -50,8 +51,9 @@ namespace Quorum.DataApi.Controllers.Challenge
 				var resultId = await _model.ChallengeTest(entity);
 				return new ChallengeResultModel{Id = resultId};
 			}
-			catch
+			catch (Exception exception)
 			{
+				Console.WriteLine(exception.Message);
 				return UnprocessableEntity(test);
 			}
 		}

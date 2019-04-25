@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.Entities
@@ -6,8 +7,6 @@ namespace Quorum.Entities
 	public class ChallengedTest : IEntity
 	{
 		public int Id { get; set; }
-
-		public int TimeSpent { get; set; }
 
 		public int  SourceTestId { get; set; }
 		public Test SourceTest   { get; set; }

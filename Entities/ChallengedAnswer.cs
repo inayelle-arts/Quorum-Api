@@ -9,6 +9,9 @@ namespace Quorum.Entities
 		public int    SourceAnswerId { get; set; }
 		public Answer SourceAnswer   { get; set; }
 
+		public int 				  ChallengedQuestionId { get; set; }
+		public ChallengedQuestion ChallengedQuestion   { get; set; }
+
 		public bool IsUserCorrect { get; set; }
 	}
 }

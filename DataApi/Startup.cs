@@ -1,8 +1,10 @@
 using System.Reflection;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using Quorum.BusinessCore.Models.Challenge;
 using Quorum.DataApi.Enums;
 using Quorum.DataApi.Extensions;
@@ -28,7 +30,9 @@ namespace Quorum.DataApi
 
 			services.AddModels(typeof(ChallengeModel).Assembly);
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
-			services.AddDataProvider(DataProvider.EntityFramework, Configuration.GetConnectionString("Quorum_EF"));
+
+			//services.AddDataProvider(DataProvider.EntityFramework, Configuration.GetConnectionString("Quorum_EF"));
+			services.AddDataProvider(DataProvider.AdoNet, Configuration.GetConnectionString("Quorum_ADO"));
 
 			services.AddClientCors(Configuration);
 
