@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Quorum.BusinessCore.Interfaces;
 using Quorum.Entities;
+using Quorum.Entities.Domain;
 using Quorum.Shared.Base;
 
 namespace Quorum.DataAccess.EfDataProvider.Repositories

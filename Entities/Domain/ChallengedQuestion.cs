@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-
 using Quorum.Shared.Interfaces;
 
-namespace Quorum.Entities
+namespace Quorum.Entities.Domain
 {
 	public class ChallengedQuestion : IEntity
 	{

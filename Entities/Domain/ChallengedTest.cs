@@ -1,20 +1,20 @@
 using System.Collections.Generic;
-
 using Quorum.Shared.Interfaces;
 
-namespace Quorum.Entities
+namespace Quorum.Entities.Domain
 {
 	public class ChallengedTest : IEntity
 	{
 		public int Id { get; set; }
 
-		public int  SourceTestId { get; set; }
-		public Test SourceTest   { get; set; }
-
 		public int MaximumScore { get; set; }
 		public int UserScore    { get; set; }
 
-		//TODO: passed by whom?
+		public int  SourceTestId { get; set; }
+		public Test SourceTest   { get; set; }
+
+		public int  UserId { get; set; }
+		public User User   { get; set; }
 
 		public ICollection<ChallengedQuestion> Questions { get; set; }
 

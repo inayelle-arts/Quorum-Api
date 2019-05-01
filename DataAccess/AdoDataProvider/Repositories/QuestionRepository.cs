@@ -6,7 +6,7 @@ using Quorum.BusinessCore.Interfaces;
 using Quorum.DataAccess.AdoDataProvider.Base;
 using Quorum.DataAccess.AdoDataProvider.Extensions;
 using Quorum.Entities;
-
+using Quorum.Entities.Domain;
 using SqlKata.Execution;
 
 namespace Quorum.DataAccess.AdoDataProvider.Repositories
@@ -20,7 +20,7 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 			_answerRepository = answerRepository;
 		}
 
-		public override async Task<int> Create(Question question)
+		public override async Task<int> CreateAsync(Question question)
 		{
 			var id = await Query.InsertReturningIdAsync<int>(new
 			{
@@ -35,7 +35,7 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 				answer.QuestionId = question.Id;
 			}
 
-			await _answerRepository.Create(question.Answers);
+			await _answerRepository.CreateAsync(question.Answers);
 
 			return id;
 		}

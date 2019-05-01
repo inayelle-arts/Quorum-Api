@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Quorum.BusinessCore.Interfaces;
 using Quorum.Entities;
+using Quorum.Entities.Domain;
 
 namespace Quorum.BusinessCore.Models.Challenge
 {
@@ -23,7 +24,7 @@ namespace Quorum.BusinessCore.Models.Challenge
 			
 			await challengeExecutor.ChallengeAsync(test, challengedTest);
 
-			return await _challengedTests.Create(challengedTest);
+			return await _challengedTests.CreateAsync(challengedTest);
 		}
 	}
 }

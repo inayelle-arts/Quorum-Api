@@ -1,20 +1,22 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Text;
-
 using AutoMapper;
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-
 using Quorum.BusinessCore.Models.Challenge;
 using Quorum.DataAccess.AdoDataProvider.Extensions;
 using Quorum.DataAccess.EfDataProvider.Extensions;
 using Quorum.DataApi.Enums;
+using Quorum.DataApi.Interfaces;
+using Quorum.DataApi.Services.Jwt;
 using Quorum.Shared.Extensions;
+using Quorum.Shared.Filters;
 
 namespace Quorum.DataApi.Extensions
 {
@@ -22,10 +24,16 @@ namespace Quorum.DataApi.Extensions
 	{
 		public static void AddApiMvc(this IServiceCollection services)
 		{
-			services.AddMvc().AddJsonOptions(options =>
-					options.SerializerSettings
-					       .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-			);
+			services.AddMvc(options =>
+			        {
+				        options.Filters.Add<ModelValidationFilter>();
+				        //TODO: AUTH
+//				        options.Filters.Add<AuthorizeFilter>();
+			        })
+			        .AddJsonOptions(options =>
+					        options.SerializerSettings
+					               .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+			        );
 		}
 
 		public static void AddDataProvider(this IServiceCollection services,
@@ -39,11 +47,13 @@ namespace Quorum.DataApi.Extensions
 					services.AddEfDataAccess(connectionString);
 					break;
 				}
+
 				case DataProvider.AdoNet:
 				{
 					services.AddAdoDataAccess(connectionString);
 					break;
 				}
+
 				default:
 				{
 					throw new NotImplementedException($"Unimplemented {provider} provider");
@@ -59,6 +69,9 @@ namespace Quorum.DataApi.Extensions
 				        options.RequireHttpsMetadata      = false;
 				        options.TokenValidationParameters = configuration.GetValidationParameters();
 			        });
+
+			services.AddSingleton<IJwtService, JwtService>()
+			        .AddSingleton<JwtSecurityTokenHandler>();
 		}
 
 		private static TokenValidationParameters GetValidationParameters(this IConfiguration configuration)

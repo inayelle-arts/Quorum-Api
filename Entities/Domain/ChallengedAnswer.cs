@@ -1,6 +1,6 @@
 using Quorum.Shared.Interfaces;
 
-namespace Quorum.Entities
+namespace Quorum.Entities.Domain
 {
 	public class ChallengedAnswer : IEntity
 	{

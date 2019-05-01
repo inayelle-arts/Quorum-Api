@@ -31,8 +31,8 @@ namespace Quorum.DataApi
 			services.AddModels(typeof(ChallengeModel).Assembly);
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-			//services.AddDataProvider(DataProvider.EntityFramework, Configuration.GetConnectionString("Quorum_EF"));
-			services.AddDataProvider(DataProvider.AdoNet, Configuration.GetConnectionString("Quorum_ADO"));
+			services.AddDataProvider(DataProvider.EntityFramework, Configuration.GetConnectionString("Quorum_EF"));
+			//services.AddDataProvider(DataProvider.AdoNet, Configuration.GetConnectionString("Quorum_ADO"));
 
 			services.AddClientCors(Configuration);
 

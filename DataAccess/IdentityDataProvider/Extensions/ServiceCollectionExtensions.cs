@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Quorum.Entities;
+using Quorum.Entities.Identity;
 
 namespace Quorum.DataAccess.IdentityDataProvider.Extensions
 {
@@ -11,7 +12,7 @@ namespace Quorum.DataAccess.IdentityDataProvider.Extensions
 		{
 			services.AddDbContext<IdentityDataContext>(o => o.UseNpgsql(connectionString));
 
-			services.AddIdentity<User, IdentityRole>()
+			services.AddIdentity<QuorumUser, IdentityRole>()
 			        .AddEntityFrameworkStores<IdentityDataContext>();
 		}
 	}

@@ -7,7 +7,7 @@ using BusinessCore.Interfaces;
 using Quorum.DataAccess.AdoDataProvider.Base;
 using Quorum.DataAccess.AdoDataProvider.Extensions;
 using Quorum.Entities;
-
+using Quorum.Entities.Domain;
 using SqlKata.Execution;
 
 namespace Quorum.DataAccess.AdoDataProvider.Repositories
@@ -18,7 +18,7 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 		{
 		}
 
-		public override async Task<int> Create(Tag tag)
+		public override async Task<int> CreateAsync(Tag tag)
 		{
 			var id = await Query.InsertReturningIdAsync<int>(new
 			{
