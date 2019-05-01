@@ -23,8 +23,4 @@
     <ProjectReference Include="..\DataAccess\AdoDataProvider\AdoDataProvider.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Test\ResultModels" />
-  </ItemGroup>
-
 </Project>

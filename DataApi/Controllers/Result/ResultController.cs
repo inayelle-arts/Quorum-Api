@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Quorum.BusinessCore.Interfaces;
 using Quorum.DataApi.Controllers.Result.ResultModels;
@@ -18,6 +19,7 @@ namespace Quorum.DataApi.Controllers.Result
 		}
 		
 		[HttpGet("{id}")]
+		[Authorize]
 		public async Task<ActionResult<PassedTestResultModel>> Get(int id)
 		{
 			var challengedTest = await _challengedTests.GetByIdAsync(id);

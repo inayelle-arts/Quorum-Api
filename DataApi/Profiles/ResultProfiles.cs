@@ -1,6 +1,7 @@
 using AutoMapper;
 using Quorum.DataApi.Controllers.Result.ResultModels;
 using Quorum.Entities;
+using Quorum.Entities.Domain;
 using Quorum.Shared.Extensions;
 
 namespace Quorum.DataApi.Profiles

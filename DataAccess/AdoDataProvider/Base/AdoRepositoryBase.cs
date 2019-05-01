@@ -33,7 +33,7 @@ namespace Quorum.DataAccess.AdoDataProvider.Base
 			this._query = queryFactory.Query(table);
 		}
 
-		public abstract Task<int> Create(TEntity entity);
+		public abstract Task<int> CreateAsync(TEntity entity);
 		// {
 		// 	var id = await query.InsertReturningId<int>(entity);
 
@@ -42,26 +42,26 @@ namespace Quorum.DataAccess.AdoDataProvider.Base
 		// 	return id;
 		// }
 
-		public virtual async Task<IEnumerable<int>> Create(IEnumerable<TEntity> entites)
+		public virtual async Task<IEnumerable<int>> CreateAsync(IEnumerable<TEntity> entites)
 		{
 			var ids = new List<int>();
 
 			foreach (var entity in entites)
 			{
-				ids.Add(await Create(entity));
+				ids.Add(await CreateAsync(entity));
 			}
 
 			return ids;
 		}
 
-		public virtual async Task<bool> Delete(TEntity entity)
+		public virtual async Task<bool> DeleteAsync(TEntity entity)
 		{
 			await Query.Where("Id", entity.Id.ToString()).DeleteAsync();
 
 			return true;
 		}
 
-		public virtual async Task<ICollection<TEntity>> GetAll()
+		public virtual async Task<ICollection<TEntity>> GetAllAsync()
 		{
 			var result = await Query.GetAsync<TEntity>();
 
@@ -75,7 +75,7 @@ namespace Quorum.DataAccess.AdoDataProvider.Base
 			return result.FirstOrDefault();
 		}
 
-		public virtual async Task<bool> Update(TEntity entity)
+		public virtual async Task<bool> UpdateAsync(TEntity entity)
 		{
 			await Query.Where("Id", entity.Id).UpdateAsync(entity);
 

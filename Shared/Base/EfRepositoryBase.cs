@@ -24,12 +24,12 @@ namespace Quorum.Shared.Base
 			return await context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id);
 		}
 
-		public virtual async Task<ICollection<TEntity>> GetAll()
+		public virtual async Task<ICollection<TEntity>> GetAllAsync()
 		{
 			return await context.Set<TEntity>().ToListAsync();
 		}
 
-		public virtual async Task<bool> Update(TEntity entity)
+		public virtual async Task<bool> UpdateAsync(TEntity entity)
 		{
 			context.Set<TEntity>().Update(entity);
 
@@ -38,7 +38,7 @@ namespace Quorum.Shared.Base
 			return true;
 		}
 
-		public virtual async Task<bool> Delete(TEntity entity)
+		public virtual async Task<bool> DeleteAsync(TEntity entity)
 		{
 			context.Set<TEntity>().Remove(entity);
 
@@ -47,7 +47,7 @@ namespace Quorum.Shared.Base
 			return true;
 		}
 
-		public virtual async Task<int> Create(TEntity entity)
+		public virtual async Task<int> CreateAsync(TEntity entity)
 		{
 			await context.Set<TEntity>().AddAsync(entity);
 
@@ -56,7 +56,7 @@ namespace Quorum.Shared.Base
 			return entity.Id;
 		}
 
-		public virtual async Task<IEnumerable<int>> Create(IEnumerable<TEntity> entities)
+		public virtual async Task<IEnumerable<int>> CreateAsync(IEnumerable<TEntity> entities)
 		{
 			await context.Set<TEntity>().AddRangeAsync(entities);
 

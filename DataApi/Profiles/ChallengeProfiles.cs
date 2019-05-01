@@ -2,6 +2,7 @@ using AutoMapper;
 using Quorum.DataApi.Controllers.Challenge.ResultsModels;
 using Quorum.DataApi.Controllers.Challenge.ViewModels;
 using Quorum.Entities;
+using Quorum.Entities.Domain;
 using Quorum.Shared.Extensions;
 
 namespace Quorum.DataApi.Profiles

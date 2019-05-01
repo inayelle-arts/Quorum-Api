@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using Quorum.Entities;
+using Quorum.Entities.Domain;
 
 namespace Quorum.DataAccess.EfDataProvider
 {
@@ -14,6 +15,8 @@ namespace Quorum.DataAccess.EfDataProvider
 		public DbSet<ChallengedTest>     ChallengedTests     { get; set; }
 		public DbSet<ChallengedQuestion> ChallengedQuestions { get; set; }
 		public DbSet<ChallengedAnswer>   ChallengedAnswers   { get; set; }
+		
+		public DbSet<User> Users { get; set; }
 
 		public EfDataContext(DbContextOptions options) : base(options)
 		{

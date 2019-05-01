@@ -7,14 +7,14 @@ namespace Quorum.Shared.Interfaces
 	{
 		Task<TEntity> GetByIdAsync(int id);
 
-		Task<ICollection<TEntity>> GetAll();
+		Task<ICollection<TEntity>> GetAllAsync();
 
-		Task<bool> Update(TEntity entity);
+		Task<bool> UpdateAsync(TEntity entity);
 
-		Task<bool> Delete(TEntity entity);
+		Task<bool> DeleteAsync(TEntity entity);
 
-		Task<int> Create(TEntity entity);
+		Task<int> CreateAsync(TEntity entity);
 
-		Task<IEnumerable<int>> Create(IEnumerable<TEntity> entities);
+		Task<IEnumerable<int>> CreateAsync(IEnumerable<TEntity> entities);
 	}
 }
