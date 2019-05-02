@@ -53,6 +53,11 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 			return id;
 		}
 
+		public Task<IEnumerable<Test>> GetOwnTestsAsync(int userId)
+		{
+			throw new NotImplementedException();
+		}
+
 		public override async Task<Test> GetByIdAsync(int id)
 		{
 			var tests = await Query.Where("Id", id).GetAsync<Test>();

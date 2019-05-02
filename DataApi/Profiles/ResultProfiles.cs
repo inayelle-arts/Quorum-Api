@@ -19,6 +19,10 @@ namespace Quorum.DataApi.Profiles
 
 			CreateMap<ChallengedTest, PassedTestResultModel>()
 					.ForField(c => c.SourceTest.Name, p => p.Name);
+
+			CreateMap<ChallengedTest, PassedTestPreviewResultModel>()
+					.ForField(c => c.SourceTest.Name, p => p.Name)
+					.ForField(c => c.User.Email, p => p.UserEmail);
 		}
 	}
 }
