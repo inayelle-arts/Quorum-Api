@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +25,16 @@ namespace Quorum.DataAccess.EfDataProvider.Repositories
 			                    .Include(t => t.Questions)
 			                    .ThenInclude(q => q.Answers)
 			                    .FirstOrDefaultAsync();
+		}
+
+		public async Task<IEnumerable<Test>> GetOwnTestsAsync(int userId)
+		{
+			return await context.Tests
+			                    .Where(t => t.UserId == userId)
+			                    .Include(t => t.Tags)
+			                    .Include(t => t.Questions)
+			                    .ThenInclude(q => q.Answers)
+			                    .ToListAsync();
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Quorum.BusinessCore.Interfaces;
@@ -43,6 +44,16 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 			await _questionRepository.CreateAsync(test.Questions);
 
 			return id;
+		}
+
+		public Task<IEnumerable<ChallengedTest>> GetStudentsResultsAsync(int userId)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<IEnumerable<ChallengedTest>> GetTutorsResultsAsync(int userId)
+		{
+			throw new System.NotImplementedException();
 		}
 
 		public override async Task<ChallengedTest> GetByIdAsync(int id)
