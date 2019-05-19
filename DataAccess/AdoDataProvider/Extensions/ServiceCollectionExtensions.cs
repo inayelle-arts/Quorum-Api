@@ -1,4 +1,3 @@
-using System;
 using System.Data.Common;
 
 using BusinessCore.Interfaces;
@@ -34,12 +33,13 @@ namespace Quorum.DataAccess.AdoDataProvider.Extensions
 		private static void AddRepositories(this IServiceCollection services)
 		{
 			services.AddTransient<ITestRepository, TestRepository>()
-					.AddTransient<ITagRepository, TagRepository>()
-					.AddTransient<IQuestionRepository, QuestionRepository>()
-					.AddTransient<IAnswerRepository, AnswerRepository>()
-					.AddTransient<IChallengedTestRepository, ChallengedTestRepository>()
-					.AddTransient<IChallengedQuestionRepository, ChallengedQuestionRepository>()
-					.AddTransient<IChallengedAnswerRepository, ChallengedAnswerRepository>();
+			        .AddTransient<ITagRepository, TagRepository>()
+			        .AddTransient<IQuestionRepository, QuestionRepository>()
+			        .AddTransient<IAnswerRepository, AnswerRepository>()
+			        .AddTransient<IChallengedTestRepository, ChallengedTestRepository>()
+			        .AddTransient<IChallengedQuestionRepository, ChallengedQuestionRepository>()
+			        .AddTransient<IChallengedAnswerRepository, ChallengedAnswerRepository>()
+			        .AddTransient<IUserRepository, UserRepository>();
 		}
     }
 }

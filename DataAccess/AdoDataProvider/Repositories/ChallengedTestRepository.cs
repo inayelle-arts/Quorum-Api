@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Quorum.BusinessCore.Interfaces;
 using Quorum.DataAccess.AdoDataProvider.Base;
 using Quorum.DataAccess.AdoDataProvider.Extensions;
@@ -13,32 +12,35 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 	public class ChallengedTestRepository : AdoRepositoryBase<ChallengedTest>, IChallengedTestRepository
 	{
 		private readonly IChallengedQuestionRepository _questionRepository;
-		private readonly ITestRepository _testRepository;
+		private readonly ITestRepository               _testRepository;
+		private readonly IUserRepository               _userRepository;
 
-		public ChallengedTestRepository(QueryFactory queryFactory,
-										IChallengedQuestionRepository questionRepository,
-										ITestRepository testRepository) : base(queryFactory)
+		public ChallengedTestRepository(QueryFactory                  queryFactory,
+		                                IChallengedQuestionRepository questionRepository,
+		                                ITestRepository               testRepository,
+		                                IUserRepository               userRepository) : base(queryFactory)
 		{
 			_questionRepository = questionRepository;
-			_testRepository = testRepository;
+			_testRepository     = testRepository;
+			_userRepository     = userRepository;
 		}
 
 		public override async Task<int> CreateAsync(ChallengedTest test)
 		{
 			var id = await Query.InsertReturningIdAsync<int>(new
 			{
-				test.SourceTestId,
-				test.UserScore,
-				test.MaximumScore
+					test.SourceTestId,
+					test.UserScore,
+					test.MaximumScore
 			});
 
-			test.Id = id;
+			test.Id         = id;
 			test.SourceTest = await _testRepository.GetByIdAsync(test.SourceTestId);
 
 			foreach (var question in test.Questions)
 			{
 				question.ChallengedTestId = test.Id;
-				question.ChallengedTest = test;
+				question.ChallengedTest   = test;
 			}
 
 			await _questionRepository.CreateAsync(test.Questions);
@@ -65,8 +67,8 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 				return null;
 			}
 
-			test.Questions = await _questionRepository.GetByParentTestAsync(test);
-
+			test.Questions  = await _questionRepository.GetByParentTestAsync(test);
+			test.User       = await _userRepository.GetByIdAsync(test.UserId);
 			test.SourceTest = await _testRepository.GetByIdAsync(test.SourceTestId);
 
 			return test;
