@@ -24,10 +24,10 @@ namespace Quorum.DataApi.Controllers.Test
 		}
 
 		[HttpPost]
-		[Authorize]
+		[Authorize(Roles = Entities.Domain.UserRole.Tutor)]
 		public async Task<ActionResult<int>> Create([FromBody] CreateTestViewModel test)
 		{
-			var entity = test.To<Entities.Domain.Test>();
+			var entity = test.MapTo<Entities.Domain.Test>();
 
 			entity.UserId = UserId;
 
@@ -37,12 +37,27 @@ namespace Quorum.DataApi.Controllers.Test
 		}
 
 		[HttpGet]
-		[Authorize]
-		public async Task<ActionResult<IEnumerable<TestPreviewResultModel>>> GetOwnTests()
+		[Authorize(Roles = Entities.Domain.UserRole.Tutor)]
+		public async Task<ActionResult<IEnumerable<TestPreviewResultModel>>> GetTestsPreviews()
 		{
 			var tests = await _testRepository.GetOwnTestsAsync(UserId);
 
-			return tests.Select(t => t.To<TestPreviewResultModel>()).ToList();
+			return tests.Select(t => t.MapTo<TestPreviewResultModel>()).ToList();
+		}
+
+		[HttpDelete("{id}")]
+		[Authorize(Roles = Entities.Domain.UserRole.Tutor)]
+		public async Task<ActionResult<int>> DeleteTest(int id)
+		{
+			var test = await _testRepository.GetByIdAsync(id);
+
+			if (test == null)
+			{
+				return NotFound(id);
+			}
+
+			await _testRepository.DeleteAsync(test);
+			return Ok(id);
 		}
 	}
 }

@@ -1,10 +1,14 @@
+using System.ComponentModel.DataAnnotations;
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.DataApi.Controllers.Test.ViewModels
 {
 	public sealed class CreateAnswerViewModel : IDataTransferObject
 	{
-		public string Content   { get; set; }
-		public bool   IsCorrect { get; set; }
+		[Required]
+		public string Content { get; set; }
+
+		[Required]
+		public bool IsCorrect { get; set; }
 	}
 }

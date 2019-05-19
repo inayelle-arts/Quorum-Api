@@ -28,10 +28,9 @@ namespace Quorum.DataApi.Controllers.Challenge
 			_model = model;
 		}
 
-		//get test data for challenge
 		[HttpGet("{id}")]
 		[Authorize]
-		public async Task<ActionResult<ChallengeTestResultModel>> Get(int id)
+		public async Task<ActionResult<ChallengeTestResultModel>> GetChallenge(int id)
 		{
 			var test = await _tests.GetByIdAsync(id);
 
@@ -40,15 +39,14 @@ namespace Quorum.DataApi.Controllers.Challenge
 				return NotFound(id);
 			}
 
-			return test.To<ChallengeTestResultModel>();
+			return test.MapTo<ChallengeTestResultModel>();
 		}
 
-		//post challenge results
 		[HttpPost]
 		[Authorize]
-		public async Task<ActionResult<ChallengeResultModel>> Post([FromBody] ChallengedTestViewModel test)
+		public async Task<ActionResult<ChallengeResultModel>> PostChallenge([FromBody] ChallengedTestViewModel test)
 		{
-			var entity = test.To<ChallengedTest>();
+			var entity = test.MapTo<ChallengedTest>();
 			entity.UserId = UserId;
 
 			try
@@ -56,9 +54,8 @@ namespace Quorum.DataApi.Controllers.Challenge
 				var resultId = await _model.ChallengeTest(entity);
 				return new ChallengeResultModel { Id = resultId };
 			}
-			catch (Exception exception)
+			catch
 			{
-				Console.WriteLine(exception.Message);
 				return UnprocessableEntity(test);
 			}
 		}

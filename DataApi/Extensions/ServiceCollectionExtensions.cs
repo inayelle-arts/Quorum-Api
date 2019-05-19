@@ -70,7 +70,7 @@ namespace Quorum.DataApi.Extensions
 				        options.TokenValidationParameters = configuration.GetValidationParameters();
 			        });
 
-			services.AddSingleton<IJwtService, JwtService>()
+			services.AddSingleton<IAuthenticationService, JwtAuthenticationService>()
 			        .AddSingleton<JwtSecurityTokenHandler>();
 		}
 

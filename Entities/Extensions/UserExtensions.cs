@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Quorum.Entities.Domain;
 
-namespace Quorum.DataApi.Extensions
+namespace Quorum.Entities.Extensions
 {
-	internal static class UserExtensions
+	public static class UserExtensions
 	{
 		public static IEnumerable<Claim> GetClaims(this User user)
 		{

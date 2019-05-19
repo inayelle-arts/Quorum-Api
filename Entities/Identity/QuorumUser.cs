@@ -5,6 +5,5 @@ namespace Quorum.Entities.Identity
 {
 	public class QuorumUser : IdentityUser, IEntity<string>
 	{
-		
 	}
 }

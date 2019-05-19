@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Quorum.Shared.Interfaces;
 
@@ -6,6 +7,8 @@ namespace Quorum.Entities.Domain
 	public class ChallengedTest : IEntity
 	{
 		public int Id { get; set; }
+
+		public DateTime ChallengedAt { get; set; }
 
 		public int MaximumScore { get; set; }
 		public int UserScore    { get; set; }
