@@ -1,7 +1,6 @@
 {
 	"ConnectionStrings": {
-		"Quorum_EF": "Server=127.0.0.1; Port=5432; Database=quorum_ef_db; User Id=quorum_user; Password=f8j40KJ)(!@;",
-		"Quorum_ADO": "Server=127.0.0.1; Port=5432; Database=quorum_ado_db; User Id=quorum_user; Password=f8j40KJ)(!@;"
+		"Quorum_EF": "Server=172.20.20.2; Port=5432; Database=quorum_db; User Id=quorum_user; Password=quorum_password;"
 	},
 	"Cors": {
 		"Client": {

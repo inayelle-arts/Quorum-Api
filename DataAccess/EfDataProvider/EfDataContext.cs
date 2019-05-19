@@ -20,6 +20,7 @@ namespace Quorum.DataAccess.EfDataProvider
 
 		public EfDataContext(DbContextOptions options) : base(options)
 		{
+			Database.Migrate();
 		}
 	}
 }
