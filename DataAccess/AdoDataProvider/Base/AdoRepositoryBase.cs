@@ -26,7 +26,7 @@ namespace Quorum.DataAccess.AdoDataProvider.Base
 			}
 		}
 
-		public AdoRepositoryBase(QueryFactory queryFactory)
+		protected AdoRepositoryBase(QueryFactory queryFactory)
 		{
 			var table = typeof(TEntity).Name + "s";
 
@@ -34,13 +34,6 @@ namespace Quorum.DataAccess.AdoDataProvider.Base
 		}
 
 		public abstract Task<int> CreateAsync(TEntity entity);
-		// {
-		// 	var id = await query.InsertReturningId<int>(entity);
-
-		// 	entity.Id = id;
-
-		// 	return id;
-		// }
 
 		public virtual async Task<IEnumerable<int>> CreateAsync(IEnumerable<TEntity> entites)
 		{

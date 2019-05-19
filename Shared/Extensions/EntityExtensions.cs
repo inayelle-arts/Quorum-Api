@@ -14,12 +14,12 @@ namespace Quorum.Shared.Extensions
 			set => _mapper = Require.NotNull(value);
 		}
 
-		public static TTarget To<TTarget>(this IEntity entity)
+		public static TTarget MapTo<TTarget>(this IEntity entity)
 		{
 			return _mapper.Map<TTarget>(entity);
 		}
 
-		public static TTarget To<TTarget>(this IDataTransferObject dto)
+		public static TTarget MapTo<TTarget>(this IDataTransferObject dto)
 				where TTarget : IEntity
 		{
 			return _mapper.Map<TTarget>(dto);

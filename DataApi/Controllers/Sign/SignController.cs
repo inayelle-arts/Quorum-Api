@@ -13,26 +13,26 @@ namespace Quorum.DataApi.Controllers.Sign
 	[Route("api/sign")]
 	public sealed class SignController : Controller
 	{
-		private readonly SignModel   _signModel;
-		private readonly IJwtService _jwtService;
+		private readonly SignModel              _signModel;
+		private readonly IAuthenticationService _authenticationService;
 
-		public SignController(SignModel signModel, IJwtService jwtService)
+		public SignController(SignModel signModel, IAuthenticationService authenticationService)
 		{
-			_signModel  = signModel;
-			_jwtService = jwtService;
+			_signModel             = signModel;
+			_authenticationService = authenticationService;
 		}
 
 		[HttpPost("up")]
 		public async Task<ActionResult<SignResultModel>> SignUp([FromBody] SignUpViewModel signUpModel)
 		{
-			var user = await _signModel.SignUp(signUpModel.To<User>());
+			var user = await _signModel.SignUp(signUpModel.MapTo<User>());
 
 			if (user == null)
 			{
 				return NotFound(signUpModel);
 			}
 
-			var token = _jwtService.GenerateToken(user);
+			var token = _authenticationService.GenerateToken(user);
 
 			return Ok(new SignResultModel(token));
 		}
@@ -40,14 +40,14 @@ namespace Quorum.DataApi.Controllers.Sign
 		[HttpPost("in")]
 		public async Task<ActionResult<SignResultModel>> SignIn([FromBody] SignInViewModel signInModel)
 		{
-			var user = await _signModel.SignIn(signInModel.To<User>());
+			var user = await _signModel.SignIn(signInModel.MapTo<User>());
 
 			if (user == null)
 			{
 				return NotFound(signInModel);
 			}
-			
-			var token = _jwtService.GenerateToken(user);
+
+			var token = _authenticationService.GenerateToken(user);
 
 			return Ok(new SignResultModel(token));
 		}

@@ -11,5 +11,7 @@ namespace Quorum.DataApi.Base
 		}
 
 		protected int UserId => Int32.Parse(GetClaim("id"));
+
+		protected string UserRole => GetClaim("role");
 	}
 }

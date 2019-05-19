@@ -32,25 +32,25 @@ namespace Quorum.DataApi.Controllers.Result
 				return NotFound(id);
 			}
 
-			return challengedTest.To<PassedTestResultModel>();
+			return challengedTest.MapTo<PassedTestResultModel>();
 		}
 
 		[HttpGet("own")]
-		[Authorize]
+		[Authorize(Roles = Entities.Domain.UserRole.Student)]
 		public async Task<ActionResult<IEnumerable<PassedTestPreviewResultModel>>> GetOwnResults()
 		{
 			var results = await _challengedTests.GetStudentsResultsAsync(UserId);
 
-			return results.Select(r => r.To<PassedTestPreviewResultModel>()).ToList();
+			return results.Select(r => r.MapTo<PassedTestPreviewResultModel>()).ToList();
 		}
 		
 		[HttpGet("tutor")]
-		[Authorize]
+		[Authorize(Roles = Entities.Domain.UserRole.Tutor)]
 		public async Task<ActionResult<IEnumerable<PassedTestPreviewResultModel>>> GetTutorResults()
 		{
 			var results = await _challengedTests.GetTutorsResultsAsync(UserId);
 
-			return results.Select(r => r.To<PassedTestPreviewResultModel>()).ToList();
+			return results.Select(r => r.MapTo<PassedTestPreviewResultModel>()).ToList();
 		}
 	}
 }

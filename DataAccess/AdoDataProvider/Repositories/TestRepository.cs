@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using BusinessCore.Interfaces;
-
 using Quorum.BusinessCore.Interfaces;
 using Quorum.DataAccess.AdoDataProvider.Base;
 using Quorum.DataAccess.AdoDataProvider.Extensions;
@@ -16,23 +14,26 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 {
 	public class TestRepository : AdoRepositoryBase<Test>, ITestRepository
 	{
-		private readonly ITagRepository _tagRepository;
+		private readonly ITagRepository      _tagRepository;
 		private readonly IQuestionRepository _questionRepository;
+		private readonly IUserRepository     _userRepository;
 
-		public TestRepository(QueryFactory queryFactory,
-							  ITagRepository tagRepository,
-							  IQuestionRepository questionRepository) : base(queryFactory)
+		public TestRepository(QueryFactory        queryFactory,
+		                      ITagRepository      tagRepository,
+		                      IQuestionRepository questionRepository,
+		                      IUserRepository     userRepository) : base(queryFactory)
 		{
-			_tagRepository = tagRepository;
+			_tagRepository      = tagRepository;
 			_questionRepository = questionRepository;
+			_userRepository     = userRepository;
 		}
 
 		public override async Task<int> CreateAsync(Test test)
 		{
 			var id = await Query.InsertReturningIdAsync<int>(new
 			{
-				test.Name,
-				test.Description
+					test.Name,
+					test.Description
 			});
 
 			test.Id = id;
@@ -69,8 +70,9 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 				return null;
 			}
 
-			test.Tags = await _tagRepository.GetByParentTestAsync(test);
+			test.Tags      = await _tagRepository.GetByParentTestAsync(test);
 			test.Questions = await _questionRepository.GetByParentTestAsync(test);
+			test.User      = await _userRepository.GetByIdAsync(test.UserId);
 
 			return test;
 		}
@@ -81,7 +83,7 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 
 			foreach (var test in tests)
 			{
-				test.Tags = await _tagRepository.GetByParentTestAsync(test);
+				test.Tags      = await _tagRepository.GetByParentTestAsync(test);
 				test.Questions = await _questionRepository.GetByParentTestAsync(test);
 			}
 

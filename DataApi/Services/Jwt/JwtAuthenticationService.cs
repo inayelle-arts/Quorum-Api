@@ -1,19 +1,19 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
-using Quorum.DataApi.Extensions;
 using Quorum.DataApi.Interfaces;
 using Quorum.Entities.Domain;
+using Quorum.Entities.Extensions;
 
 namespace Quorum.DataApi.Services.Jwt
 {
-	internal sealed class JwtService : IJwtService
+	internal sealed class JwtAuthenticationService : IAuthenticationService
 	{
 		private readonly JwtSecurityTokenHandler _jwtHandler;
 
 		private readonly JwtConfiguration _configuration;
 
-		public JwtService(IConfiguration configuration, JwtSecurityTokenHandler jwtHandler)
+		public JwtAuthenticationService(IConfiguration configuration, JwtSecurityTokenHandler jwtHandler)
 		{
 			_jwtHandler    = jwtHandler;
 			_configuration = new JwtConfiguration(configuration.GetSection("Authentication"));

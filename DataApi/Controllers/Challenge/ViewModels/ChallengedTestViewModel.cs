@@ -1,20 +1,19 @@
+using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.DataApi.Controllers.Challenge.ViewModels
 {
 	public sealed class ChallengedTestViewModel : IDataTransferObject
 	{
+		[Required]
 		public int SourceTestId { get; set; }
 
-		//TODO: passed by whom?
+		[Required]
+		public DateTime ChallengedAt { get; set; }
 
+		[Required]
 		public ICollection<ChallengedQuestionViewModel> Questions { get; set; }
-
-		public ChallengedTestViewModel()
-		{
-			Questions = new List<ChallengedQuestionViewModel>();
-		}
 	}
 }
