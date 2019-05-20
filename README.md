@@ -24,4 +24,4 @@ Student is only allowed to pass tests and check their own results
 
 - Clone repository and update submodules
 - ```cd``` to Docker directory
-- Run ```bash docker-compose up```
+- Run ```docker-compose up```
