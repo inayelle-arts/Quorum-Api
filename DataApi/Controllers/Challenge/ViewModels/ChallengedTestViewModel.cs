@@ -11,9 +11,11 @@ namespace Quorum.DataApi.Controllers.Challenge.ViewModels
 		public int SourceTestId { get; set; }
 
 		[Required]
+		[DataType(DataType.DateTime)]
 		public DateTime ChallengedAt { get; set; }
 
 		[Required]
+		[MinLength(1)]
 		public ICollection<ChallengedQuestionViewModel> Questions { get; set; }
 	}
 }

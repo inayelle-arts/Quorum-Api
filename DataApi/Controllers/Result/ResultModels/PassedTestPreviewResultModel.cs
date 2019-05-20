@@ -8,5 +8,7 @@ namespace Quorum.DataApi.Controllers.Result.ResultModels
 		public string Name         { get; set; }
 		public string ChallengedAt { get; set; }
 		public string UserEmail    { get; set; }
+		public int    UserScore    { get; set; }
+		public int    MaximumScore { get; set; }
 	}
 }

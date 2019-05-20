@@ -9,7 +9,7 @@ namespace Quorum.DataApi.Profiles
 	{
 		public SignProfiles()
 		{
-			CreateMap<SignUpViewModel, User>().ForField(dto => dto.UserType, entity => entity.Role);
+			CreateMap<SignUpViewModel, User>();
 			CreateMap<SignInViewModel, User>();
 		}
 	}

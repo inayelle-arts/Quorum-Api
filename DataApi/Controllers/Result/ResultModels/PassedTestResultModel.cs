@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Quorum.Entities.Domain;
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.DataApi.Controllers.Result.ResultModels
@@ -11,12 +13,11 @@ namespace Quorum.DataApi.Controllers.Result.ResultModels
 
 		public int MaximumScore { get; set; }
 		public int UserScore    { get; set; }
-		
-		public ICollection<PassedQuestionResultModel> Questions { get; set; }
 
-		public PassedTestResultModel()
-		{
-			Questions = new List<PassedQuestionResultModel>();
-		}
+		public string UserEmail { get; set; }
+
+		public DateTime ChallengedAt { get; set; }
+
+		public ICollection<PassedQuestionResultModel> Questions { get; set; }
 	}
 }

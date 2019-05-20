@@ -6,6 +6,7 @@ namespace Quorum.DataApi.Controllers.Sign.ViewModels
 	public sealed class SignInViewModel : IDataTransferObject
 	{
 		[Required]
+		[EmailAddress]
 		public string Email { get; set; }
 
 		[Required]

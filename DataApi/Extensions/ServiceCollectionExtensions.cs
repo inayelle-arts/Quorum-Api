@@ -5,6 +5,7 @@ using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ using Quorum.DataAccess.EfDataProvider.Extensions;
 using Quorum.DataApi.Enums;
 using Quorum.DataApi.Interfaces;
 using Quorum.DataApi.Services.Jwt;
+using Quorum.Entities.Domain;
 using Quorum.Shared.Extensions;
 using Quorum.Shared.Filters;
 
@@ -22,13 +24,16 @@ namespace Quorum.DataApi.Extensions
 {
 	internal static class ServiceCollectionExtensions
 	{
+		public static void AddPasswordHasher(this IServiceCollection services)
+		{
+			services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
+		}
+		
 		public static void AddApiMvc(this IServiceCollection services)
 		{
 			services.AddMvc(options =>
 			        {
 				        options.Filters.Add<ModelValidationFilter>();
-				        //TODO: AUTH
-//				        options.Filters.Add<AuthorizeFilter>();
 			        })
 			        .AddJsonOptions(options =>
 					        options.SerializerSettings

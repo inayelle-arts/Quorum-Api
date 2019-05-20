@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Quorum.Shared.Interfaces;
 
@@ -9,6 +10,8 @@ namespace Quorum.DataApi.Controllers.Test.ResultModels
 
 		public string Name        { get; set; }
 		public string Description { get; set; }
+
+		public DateTime CreatedAt { get; set; }
 
 		public int                 QuestionsCount { get; set; }
 		public IEnumerable<string> Tags           { get; set; }

@@ -25,11 +25,11 @@ namespace Quorum.DataApi.Controllers.Sign
 		[HttpPost("up")]
 		public async Task<ActionResult<SignResultModel>> SignUp([FromBody] SignUpViewModel signUpModel)
 		{
-			var user = await _signModel.SignUp(signUpModel.MapTo<User>());
+			var user = await _signModel.SignUp(signUpModel.MapTo<User>(), signUpModel.Password);
 
 			if (user == null)
 			{
-				return NotFound(signUpModel);
+				return Conflict(signUpModel);
 			}
 
 			var token = _authenticationService.GenerateToken(user);
@@ -40,11 +40,11 @@ namespace Quorum.DataApi.Controllers.Sign
 		[HttpPost("in")]
 		public async Task<ActionResult<SignResultModel>> SignIn([FromBody] SignInViewModel signInModel)
 		{
-			var user = await _signModel.SignIn(signInModel.MapTo<User>());
+			var user = await _signModel.SignIn(signInModel.Email, signInModel.Password);
 
 			if (user == null)
 			{
-				return NotFound(signInModel);
+				return BadRequest(signInModel);
 			}
 
 			var token = _authenticationService.GenerateToken(user);

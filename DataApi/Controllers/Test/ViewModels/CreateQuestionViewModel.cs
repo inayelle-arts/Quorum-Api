@@ -10,6 +10,7 @@ namespace Quorum.DataApi.Controllers.Test.ViewModels
 		public string Content { get; set; }
 
 		[Required]
+		[MinLength(2)]
 		public ICollection<CreateAnswerViewModel> Answers { get; set; }
 	}
 }

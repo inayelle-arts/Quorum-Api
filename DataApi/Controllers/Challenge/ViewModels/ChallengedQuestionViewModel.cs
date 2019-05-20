@@ -10,6 +10,7 @@ namespace Quorum.DataApi.Controllers.Challenge.ViewModels
 		public int SourceQuestionId { get; set; }
 
 		[Required]
+		[MinLength(2)]
 		public ICollection<ChallengedAnswerViewModel> Answers { get; set; }
 	}
 }

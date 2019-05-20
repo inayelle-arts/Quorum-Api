@@ -18,7 +18,8 @@ namespace Quorum.DataApi.Profiles
 					.ForField(c => c.SourceQuestion.Content, p => p.Content);
 
 			CreateMap<ChallengedTest, PassedTestResultModel>()
-					.ForField(c => c.SourceTest.Name, p => p.Name);
+					.ForField(c => c.SourceTest.Name, p => p.Name)
+					.ForField(c => c.User.Email, p => p.UserEmail);
 
 			CreateMap<ChallengedTest, PassedTestPreviewResultModel>()
 					.ForField(c => c.SourceTest.Name, p => p.Name)
