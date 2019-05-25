@@ -1,7 +1,9 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Quorum.DataApi.Extensions;
 using Quorum.DataApi.Interfaces;
+using Quorum.DataApi.Settings;
 using Quorum.Entities.Domain;
 using Quorum.Entities.Extensions;
 
@@ -11,26 +13,27 @@ namespace Quorum.DataApi.Services.Jwt
 	{
 		private readonly JwtSecurityTokenHandler _jwtHandler;
 
-		private readonly JwtConfiguration _configuration;
+		private readonly JwtSettings _settings;
 
-		public JwtAuthenticationService(IConfiguration configuration, JwtSecurityTokenHandler jwtHandler)
+		private readonly SigningCredentials _credentials;
+
+		public JwtAuthenticationService(JwtSettings settings, JwtSecurityTokenHandler jwtHandler)
 		{
-			_jwtHandler    = jwtHandler;
-			_configuration = new JwtConfiguration(configuration.GetSection("Authentication"));
+			_jwtHandler  = jwtHandler;
+			_settings    = settings;
+			_credentials = settings.GetCredentials();
 		}
 
 		public string GenerateToken(User user)
 		{
-			var expireTime = DateTime.UtcNow.AddMinutes(_configuration.TokenLifetime);
+			var expireTime = DateTime.UtcNow.AddMinutes(_settings.TokenLifetime);
 
-			var token = new JwtSecurityToken(
-					issuer: _configuration.Issuer,
-					audience: _configuration.Audience,
-					notBefore: DateTime.UtcNow,
-					expires: expireTime,
-					signingCredentials: _configuration.Credentials,
-					claims: user.GetClaims()
-			);
+			var token = new JwtSecurityToken(issuer: _settings.Issuer,
+											 audience: _settings.Audience,
+											 notBefore: DateTime.UtcNow,
+											 expires: expireTime,
+											 signingCredentials: _credentials,
+											 claims: user.GetClaims());
 
 			return _jwtHandler.WriteToken(token);
 		}

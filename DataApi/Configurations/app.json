@@ -1,14 +1,9 @@
 {
-    "Cors": {
-        "Client": {
-            "Host": "http://127.0.0.1"
-        }
-    },
     "Authentication": {
         "Audience": "Quorum.Client",
-        "Issuer": "Quorum.Auth",
+        "Issuer": "Quorum.Client",
         "SignKey": "089jIUH9877!23kw+81#jmNNl",
-        "Algorithm": "HS256",
-        "Lifetime": 30
+        "HashingAlgorithm": "HS256",
+        "TokenLifetime": 30
     }
 }

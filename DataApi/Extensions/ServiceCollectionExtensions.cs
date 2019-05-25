@@ -16,6 +16,7 @@ using Quorum.DataAccess.EfDataProvider.Extensions;
 using Quorum.DataApi.Enums;
 using Quorum.DataApi.Interfaces;
 using Quorum.DataApi.Services.Jwt;
+using Quorum.DataApi.Settings;
 using Quorum.Entities.Domain;
 using Quorum.Shared.Extensions;
 using Quorum.Shared.Filters;
@@ -28,22 +29,20 @@ namespace Quorum.DataApi.Extensions
 		{
 			services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 		}
-		
+
 		public static void AddApiMvc(this IServiceCollection services)
 		{
-			services.AddMvc(options =>
-			        {
-				        options.Filters.Add<ModelValidationFilter>();
-			        })
-			        .AddJsonOptions(options =>
-					        options.SerializerSettings
-					               .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-			        );
+			services.AddMvc(options => { options.Filters.Add<ModelValidationFilter>(); })
+					.AddJsonOptions(options =>
+											options.SerializerSettings
+												   .ReferenceLoopHandling =
+													Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 		}
 
 		public static void AddDataProvider(this IServiceCollection services,
-		                                   DataProvider            provider,
-		                                   string                  connectionString)
+										   DataProvider            provider,
+										   string                  connectionString
+		)
 		{
 			switch (provider)
 			{
@@ -69,14 +68,35 @@ namespace Quorum.DataApi.Extensions
 		public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-			        .AddJwtBearer(options =>
-			        {
-				        options.RequireHttpsMetadata      = false;
-				        options.TokenValidationParameters = configuration.GetValidationParameters();
-			        });
+					.AddJwtBearer(options =>
+					 {
+						 options.RequireHttpsMetadata      = false;
+						 options.TokenValidationParameters = configuration.GetValidationParameters();
+					 });
 
 			services.AddSingleton<IAuthenticationService, JwtAuthenticationService>()
-			        .AddSingleton<JwtSecurityTokenHandler>();
+					.AddSingleton<JwtSecurityTokenHandler>();
+		}
+
+		[Obsolete("No need in CORS due to nginx gateway")]
+		public static void AddClientCors(this IServiceCollection services, IConfiguration configuration)
+		{
+			var policy = new CorsPolicyBuilder()
+						.WithOrigins(configuration["Cors:Client:Host"])
+						.AllowAnyHeader()
+						.AllowAnyMethod()
+						.Build();
+
+			services.AddCors(cors => cors.AddPolicy("Client", policy));
+		}
+
+		public static void AddSettings(this IServiceCollection services, IConfiguration configuration)
+		{
+			var jwtSettings = new JwtSettings();
+
+			configuration.Bind("Authentication", jwtSettings);
+
+			services.AddSingleton(jwtSettings);
 		}
 
 		private static TokenValidationParameters GetValidationParameters(this IConfiguration configuration)
@@ -86,13 +106,13 @@ namespace Quorum.DataApi.Extensions
 
 			return new TokenValidationParameters
 			{
-					ValidateIssuer           = true,
-					ValidateAudience         = true,
-					ValidateLifetime         = true,
-					ValidateIssuerSigningKey = true,
-					ValidIssuer              = configuration["Authentication:Issuer"],
-					ValidAudience            = configuration["Authentication:Audience"],
-					IssuerSigningKey         = signKey
+				ValidateIssuer           = true,
+				ValidateAudience         = true,
+				ValidateLifetime         = true,
+				ValidateIssuerSigningKey = true,
+				ValidIssuer              = configuration["Authentication:Issuer"],
+				ValidAudience            = configuration["Authentication:Audience"],
+				IssuerSigningKey         = signKey
 			};
 		}
 	}

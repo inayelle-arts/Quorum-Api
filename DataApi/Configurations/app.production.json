@@ -1,17 +1,5 @@
 {
-	"ConnectionStrings": {
-		"Quorum_EF": "Server=172.20.20.2; Port=5432; Database=quorum_db; User Id=quorum_user; Password=quorum_password;"
-	},
-	"Cors": {
-		"Client": {
-			"Host": "http://127.0.0.1"
-		}
-	},
-	"Authentication": {
-		"Audience": "Quorum.Client",
-		"Issuer": "Quorum.Auth",
-		"SignKey": "089jIUH9877!23kw+81#jmNNl",
-		"Algorithm": "HS256",
-		"Lifetime": 30
-	}
+    "ConnectionStrings": {
+        "Quorum_EF": "Server=172.20.20.2; Port=5432; Database=quorum_prod_storage; User Id=quorum_prod_user; Password=Q2JahkZRHtY2GC2hKdhE7V3mgca8mgKm3nkfRFPvFAZ7;"
+    }
 }
