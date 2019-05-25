@@ -1,3 +1,0 @@
-[submodule "Client"]
-	path = Client
-	url = git@github.com:inayelle-arts/Quorum-Client.git
