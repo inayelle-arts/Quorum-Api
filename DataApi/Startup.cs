@@ -27,24 +27,20 @@ namespace Quorum.DataApi
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddSingleton(Configuration);
-
+			services.AddSettings(Configuration);
+			
 			services.AddPasswordHasher();
 			services.AddModels(typeof(ChallengeModel).Assembly);
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-			//services.AddDataProvider(DataProvider.AdoNet, Configuration.GetConnectionString("Quorum_ADO"));
 			services.AddDataProvider(DataProvider.EntityFramework, Configuration.GetConnectionString("Quorum_EF"));
-
-			services.AddClientCors(Configuration);
-
+			
 			services.AddJwtAuthentication(Configuration);
 			services.AddApiMvc();
 		}
 
 		public void Configure(IApplicationBuilder app)
 		{
-			app.UseClientCors();
-
 			app.UseAuthentication();
 
 			app.UseMvc();

@@ -1,8 +1,5 @@
 using System.Reflection;
 using AutoMapper;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Quorum.Shared.Extensions
@@ -30,17 +27,6 @@ namespace Quorum.Shared.Extensions
 			services.AddSingleton<IMapper>(mapper);
 
 			EntityExtensions.Mapper = mapper;
-		}
-		
-		public static void AddClientCors(this IServiceCollection services, IConfiguration configuration)
-		{
-			var policy = new CorsPolicyBuilder()
-			             .WithOrigins(configuration["Cors:Client:Host"])
-			             .AllowAnyHeader()
-			             .AllowAnyMethod()
-			             .Build();
-
-			services.AddCors(cors => cors.AddPolicy("Client", policy));
 		}
 	}
 }

@@ -1,27 +1,45 @@
 version: '3.7'
 
 services:
-  ef_storage:
+  gateway:
+    container_name: Quorum_Gateway
+    image: nginx:alpine
+    networks:
+      quorum_network:
+        ipv4_address: 172.20.20.254
+    volumes:
+      - ./gateway.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - storage
+      - api
+      - client
+    ports:
+      - 80:80
+
+  storage:
+    container_name: Quorum_Storage
     image: postgres:latest
     environment:
-      POSTGRES_DB: 'quorum_db'
-      POSTGRES_USER: 'quorum_user'
-      POSTGRES_PASSWORD: 'quorum_password'
-    networks: 
+      POSTGRES_DB: quorum_prod_storage
+      POSTGRES_USER: quorum_prod_user
+      POSTGRES_PASSWORD: Q2JahkZRHtY2GC2hKdhE7V3mgca8mgKm3nkfRFPvFAZ7
+    networks:
       quorum_network:
         ipv4_address: 172.20.20.2
 
   api:
-    build: 
+    container_name: Quorum_Api
+    build:
       dockerfile: Docker/api.dockerfile
       context: ../
-    networks: 
+    networks:
       quorum_network:
         ipv4_address: 172.20.20.3
-    depends_on: 
-      - ef_storage
-        
+    depends_on:
+      - storage
+
   client:
+    container_name: Quorum_Client
     build:
       dockerfile: Docker/client.dockerfile
       context: ../
@@ -30,12 +48,8 @@ services:
         ipv4_address: 172.20.20.4
     depends_on:
       - api
-    ports:
-      - 80:80
-    volumes:
-      - ../Client/nginx.conf:/etc/nginx/nginx.conf:ro
-      
-networks: 
+
+networks:
   quorum_network:
     driver: bridge
     driver_opts:
@@ -43,4 +57,4 @@ networks:
     ipam:
       driver: default
       config:
-      - subnet: 172.20.20.0/24
+        - subnet: 172.20.20.0/24
