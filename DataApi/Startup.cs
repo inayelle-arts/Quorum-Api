@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Quorum.BusinessCore.Models.Challenge;
+using Quorum.BusinessCore.Extensions;
 using Quorum.DataApi.Enums;
 using Quorum.DataApi.Extensions;
-using Quorum.Shared.Auxiliary;
+using Quorum.DataApi.Services.Identity;
 using Quorum.Shared.Extensions;
 using StartupBase = Quorum.Shared.Base.StartupBase;
 
@@ -21,10 +21,12 @@ namespace Quorum.DataApi
 		public override void ConfigureServices(IServiceCollection services)
 		{
 			services.AddSingleton(Configuration);
-			services.AddSettings(Configuration);
+			
+			services.AddRabbitMq(Configuration);
 
-			services.AddPasswordHasher();
-			services.AddModels(typeof(ChallengeModel).Assembly);
+			services.AddSingleton<IdentityService>();
+			
+			services.AddDomainServices();
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 			services.AddDataProvider(DataProvider.EntityFramework, Configuration.GetConnectionString("Quorum_EF"));
@@ -36,7 +38,7 @@ namespace Quorum.DataApi
 		public override void Configure(IApplicationBuilder app)
 		{
 			app.UseAuthentication();
-
+			
 			app.UseMvc();
 		}
 	}

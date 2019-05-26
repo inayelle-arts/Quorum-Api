@@ -15,6 +15,6 @@ namespace Quorum.Shared.Interfaces
 
 		Task<int> CreateAsync(TEntity entity);
 
-		Task<IEnumerable<int>> CreateAsync(IEnumerable<TEntity> entities);
+		Task<ICollection<int>> CreateAsync(ICollection<TEntity> entities);
 	}
 }

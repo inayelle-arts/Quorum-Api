@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Quorum.BusinessCore.Interfaces;
+using Quorum.BusinessCore.Interfaces.Repositories;
 using Quorum.DataApi.Controllers.Result.ResultModels;
 using Quorum.DataApi.Extensions;
 using Quorum.Shared.Extensions;
@@ -36,7 +37,7 @@ namespace Quorum.DataApi.Controllers.Result
 		}
 
 		[HttpGet("own")]
-		[Authorize(Roles = Entities.Domain.UserRole.Student)]
+		[Authorize(Roles = Domain.Entities.Enums.UserRole.Student)]
 		public async Task<ActionResult<IEnumerable<PassedTestPreviewResultModel>>> GetOwnResults()
 		{
 			var results = await _challengedTests.GetStudentsResultsAsync(UserId);
@@ -45,7 +46,7 @@ namespace Quorum.DataApi.Controllers.Result
 		}
 		
 		[HttpGet("tutor")]
-		[Authorize(Roles = Entities.Domain.UserRole.Tutor)]
+		[Authorize(Roles = Domain.Entities.Enums.UserRole.Tutor)]
 		public async Task<ActionResult<IEnumerable<PassedTestPreviewResultModel>>> GetTutorResults()
 		{
 			var results = await _challengedTests.GetTutorsResultsAsync(UserId);

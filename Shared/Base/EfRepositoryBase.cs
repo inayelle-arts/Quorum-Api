@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.EntityFrameworkCore;
-
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.Shared.Base
@@ -12,57 +10,57 @@ namespace Quorum.Shared.Base
 			where TEntity : class, IEntity, new()
 			where TContext : DbContext
 	{
-		protected readonly TContext context;
+		protected TContext Context { get; }
 
 		protected EfRepositoryBase(TContext context)
 		{
-			this.context = context;
+			Context = context;
 		}
 
 		public virtual async Task<TEntity> GetByIdAsync(int id)
 		{
-			return await context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id);
+			return await Context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id.Equals(id));
 		}
 
 		public virtual async Task<ICollection<TEntity>> GetAllAsync()
 		{
-			return await context.Set<TEntity>().ToListAsync();
+			return await Context.Set<TEntity>().ToListAsync();
 		}
 
 		public virtual async Task<bool> UpdateAsync(TEntity entity)
 		{
-			context.Set<TEntity>().Update(entity);
+			Context.Set<TEntity>().Update(entity);
 
-			await context.SaveChangesAsync();
+			await Context.SaveChangesAsync();
 
 			return true;
 		}
 
 		public virtual async Task<bool> DeleteAsync(TEntity entity)
 		{
-			context.Set<TEntity>().Remove(entity);
+			Context.Set<TEntity>().Remove(entity);
 
-			await context.SaveChangesAsync();
+			await Context.SaveChangesAsync();
 
 			return true;
 		}
 
 		public virtual async Task<int> CreateAsync(TEntity entity)
 		{
-			await context.Set<TEntity>().AddAsync(entity);
+			await Context.Set<TEntity>().AddAsync(entity);
 
-			await context.SaveChangesAsync();
+			await Context.SaveChangesAsync();
 
 			return entity.Id;
 		}
 
-		public virtual async Task<IEnumerable<int>> CreateAsync(IEnumerable<TEntity> entities)
+		public virtual async Task<ICollection<int>> CreateAsync(ICollection<TEntity> entities)
 		{
-			await context.Set<TEntity>().AddRangeAsync(entities);
+			await Context.Set<TEntity>().AddRangeAsync(entities);
 
-			await context.SaveChangesAsync();
+			await Context.SaveChangesAsync();
 
-			return entities.Select(e => e.Id);
+			return entities.Select(e => e.Id).ToList();
 		}
 	}
 }

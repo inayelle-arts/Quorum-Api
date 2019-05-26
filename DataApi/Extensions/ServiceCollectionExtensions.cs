@@ -1,44 +1,18 @@
 using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Reflection;
 using System.Text;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Quorum.BusinessCore.Models.Challenge;
-using Quorum.DataAccess.AdoDataProvider.Extensions;
-using Quorum.DataAccess.EfDataProvider.Extensions;
 using Quorum.DataApi.Enums;
-using Quorum.DataApi.Interfaces;
-using Quorum.DataApi.Services.Jwt;
-using Quorum.DataApi.Settings;
-using Quorum.Entities.Domain;
-using Quorum.Shared.Extensions;
-using Quorum.Shared.Filters;
+using Quorum.DataProviders.AdoDataProvider.Extensions;
+using Quorum.DataProviders.EfDataProvider.Extensions;
+using RabbitMQ.Client.Core.DependencyInjection;
 
 namespace Quorum.DataApi.Extensions
 {
 	internal static class ServiceCollectionExtensions
 	{
-		public static void AddPasswordHasher(this IServiceCollection services)
-		{
-			services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
-		}
-
-		public static void AddApiMvc(this IServiceCollection services)
-		{
-			services.AddMvc(options => { options.Filters.Add<ModelValidationFilter>(); })
-					.AddJsonOptions(options =>
-											options.SerializerSettings
-												   .ReferenceLoopHandling =
-													Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-		}
-
 		public static void AddDataProvider(this IServiceCollection services,
 										   DataProvider            provider,
 										   string                  connectionString
@@ -73,30 +47,19 @@ namespace Quorum.DataApi.Extensions
 						 options.RequireHttpsMetadata      = false;
 						 options.TokenValidationParameters = configuration.GetValidationParameters();
 					 });
-
-			services.AddSingleton<IAuthenticationService, JwtAuthenticationService>()
-					.AddSingleton<JwtSecurityTokenHandler>();
 		}
 
-		[Obsolete("No need in CORS due to nginx gateway")]
-		public static void AddClientCors(this IServiceCollection services, IConfiguration configuration)
+		public static void AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
 		{
-			var policy = new CorsPolicyBuilder()
-						.WithOrigins(configuration["Cors:Client:Host"])
-						.AllowAnyHeader()
-						.AllowAnyMethod()
-						.Build();
+			var rabbitMqConfig  = configuration.GetSection("RabbitMQ");
+			var exchangesConfig = configuration.GetSection("RabbitMQ:Exchanges");
 
-			services.AddCors(cors => cors.AddPolicy("Client", policy));
-		}
+			services.AddRabbitMqClient(rabbitMqConfig);
 
-		public static void AddSettings(this IServiceCollection services, IConfiguration configuration)
-		{
-			var jwtSettings = new JwtSettings();
-
-			configuration.Bind("Authentication", jwtSettings);
-
-			services.AddSingleton(jwtSettings);
+			foreach (var exchangeConfig in exchangesConfig.GetChildren())
+			{
+				services.AddExchange(exchangeConfig.Key, exchangeConfig);
+			}
 		}
 
 		private static TokenValidationParameters GetValidationParameters(this IConfiguration configuration)

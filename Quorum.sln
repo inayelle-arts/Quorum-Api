@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{6F3FB67D-74A7-4915-9FF0-ACCB709C1089}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{0F9C00D6-5FE5-4285-9C72-53646221927C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessCore", "BusinessCore\BusinessCore.csproj", "{AF2C4DF3-47D6-47DC-8E2A-334474D0FABA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProviders", "DataProviders", "{6F3FB67D-74A7-4915-9FF0-ACCB709C1089}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoDataProvider", "DataAccess\AdoDataProvider\AdoDataProvider.csproj", "{E4A2FB37-748E-41DF-872D-1F06C5DF2DB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessCore", "Domain\BusinessCore\BusinessCore.csproj", "{AF2C4DF3-47D6-47DC-8E2A-334474D0FABA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfDataProvider", "DataAccess\EfDataProvider\EfDataProvider.csproj", "{975E2BE9-7CC2-4206-AE26-DE68B51331CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoDataProvider", "DataProviders\AdoDataProvider\AdoDataProvider.csproj", "{E4A2FB37-748E-41DF-872D-1F06C5DF2DB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfDataProvider", "DataProviders\EfDataProvider\EfDataProvider.csproj", "{975E2BE9-7CC2-4206-AE26-DE68B51331CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{FEB8ECB0-BF2A-49FD-B02D-ED969A6F0322}"
 EndProject
@@ -17,9 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataApi", "DataApi\DataApi.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityApi", "IdentityApi\IdentityApi.csproj", "{BDC68253-B24D-4A26-BC98-D878B2499280}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityDataProvider", "DataAccess\IdentityDataProvider\IdentityDataProvider.csproj", "{0589B61A-39D0-40A4-8F38-837FA5E7F6D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityDataProvider", "DataProviders\IdentityDataProvider\IdentityDataProvider.csproj", "{0589B61A-39D0-40A4-8F38-837FA5E7F6D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{6F1C3A89-17C8-4225-99DD-2D9BABB198E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Domain\Entities\Entities.csproj", "{6F1C3A89-17C8-4225-99DD-2D9BABB198E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityCore", "Domain\IdentityCore\IdentityCore.csproj", "{64835B05-196D-4839-AF66-BB7A17E49FA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,10 +134,25 @@ Global
 		{6F1C3A89-17C8-4225-99DD-2D9BABB198E5}.Release|x64.Build.0 = Release|Any CPU
 		{6F1C3A89-17C8-4225-99DD-2D9BABB198E5}.Release|x86.ActiveCfg = Release|Any CPU
 		{6F1C3A89-17C8-4225-99DD-2D9BABB198E5}.Release|x86.Build.0 = Release|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Debug|x64.Build.0 = Debug|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Debug|x86.Build.0 = Debug|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Release|x64.ActiveCfg = Release|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Release|x64.Build.0 = Release|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Release|x86.ActiveCfg = Release|Any CPU
+		{64835B05-196D-4839-AF66-BB7A17E49FA5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E4A2FB37-748E-41DF-872D-1F06C5DF2DB3} = {6F3FB67D-74A7-4915-9FF0-ACCB709C1089}
 		{975E2BE9-7CC2-4206-AE26-DE68B51331CF} = {6F3FB67D-74A7-4915-9FF0-ACCB709C1089}
 		{0589B61A-39D0-40A4-8F38-837FA5E7F6D5} = {6F3FB67D-74A7-4915-9FF0-ACCB709C1089}
+		{AF2C4DF3-47D6-47DC-8E2A-334474D0FABA} = {0F9C00D6-5FE5-4285-9C72-53646221927C}
+		{6F1C3A89-17C8-4225-99DD-2D9BABB198E5} = {0F9C00D6-5FE5-4285-9C72-53646221927C}
+		{64835B05-196D-4839-AF66-BB7A17E49FA5} = {0F9C00D6-5FE5-4285-9C72-53646221927C}
 	EndGlobalSection
 EndGlobal

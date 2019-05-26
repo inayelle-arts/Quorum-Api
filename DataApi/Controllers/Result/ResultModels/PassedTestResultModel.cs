@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Quorum.Entities.Domain;
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.DataApi.Controllers.Result.ResultModels

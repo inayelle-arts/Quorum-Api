@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Quorum.DataApi.Validators;
-using Quorum.Entities.Domain;
+using Quorum.Domain.Entities.Domain;
+using Quorum.Domain.Entities.Enums;
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.DataApi.Controllers.Sign.ViewModels
