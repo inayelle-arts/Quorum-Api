@@ -15,9 +15,5 @@
       <ProjectReference Include="..\DataAccess\IdentityDataProvider\IdentityDataProvider.csproj" />
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Controllers" />
-    </ItemGroup>
 	
 </Project>
