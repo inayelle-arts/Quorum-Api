@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Quorum.BusinessCore.Interfaces;
+using Quorum.BusinessCore.Interfaces.Repositories;
 using Quorum.DataProviders.EfDataProvider.Repositories;
 
 namespace Quorum.DataProviders.EfDataProvider.Extensions

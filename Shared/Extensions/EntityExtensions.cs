@@ -6,23 +6,17 @@ namespace Quorum.Shared.Extensions
 {
 	public static class EntityExtensions
 	{
-		private static IMapper _mapper;
-
-		public static IMapper Mapper
-		{
-			get => _mapper;
-			set => _mapper = Require.NotNull(value);
-		}
+		public static IMapper Mapper => AutoMapper.Mapper.Instance;
 
 		public static TTarget MapTo<TTarget>(this IEntity entity)
 		{
-			return _mapper.Map<TTarget>(entity);
+			return Mapper.Map<TTarget>(entity);
 		}
 
 		public static TTarget MapTo<TTarget>(this IDataTransferObject dto)
 				where TTarget : IEntity
 		{
-			return _mapper.Map<TTarget>(dto);
+			return Mapper.Map<TTarget>(dto);
 		}
 	}
 }

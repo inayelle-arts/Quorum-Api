@@ -1,11 +1,7 @@
 namespace Quorum.Shared.Interfaces
 {
-	public interface IEntity<TKey>
+	public interface IEntity
 	{
-		TKey Id { get; set; }
-	}
-	
-	public interface IEntity : IEntity<int>
-	{
+		int Id { get; set; }
 	}
 }

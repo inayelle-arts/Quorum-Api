@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 using Quorum.BusinessCore.Interfaces;
-using Quorum.Entities.Domain;
+using Quorum.BusinessCore.Interfaces.Repositories;
+using Quorum.Domain.Entities.Domain;
 using Quorum.Shared.Base;
 
 namespace Quorum.DataProviders.EfDataProvider.Repositories
@@ -19,7 +20,7 @@ namespace Quorum.DataProviders.EfDataProvider.Repositories
 
 		public override async Task<ChallengedTest> GetByIdAsync(int id)
 		{
-			return await context.ChallengedTests
+			return await Context.ChallengedTests
 			                    .Where(t => t.Id == id)
 			                    .Include(t => t.User)
 			                    .Include(t => t.SourceTest)
@@ -33,7 +34,7 @@ namespace Quorum.DataProviders.EfDataProvider.Repositories
 
 		public async Task<IEnumerable<ChallengedTest>> GetStudentsResultsAsync(int userId)
 		{
-			return await context.ChallengedTests
+			return await Context.ChallengedTests
 			                    .Where(t => t.UserId == userId)
 			                    .Include(t => t.User)
 			                    .Include(t => t.SourceTest)
@@ -47,7 +48,7 @@ namespace Quorum.DataProviders.EfDataProvider.Repositories
 
 		public async Task<IEnumerable<ChallengedTest>> GetTutorsResultsAsync(int userId)
 		{
-			return await context.ChallengedTests
+			return await Context.ChallengedTests
 			                    .Where(t => t.SourceTest.UserId == userId)
 			                    .Include(t => t.User)
 			                    .Include(t => t.SourceTest)

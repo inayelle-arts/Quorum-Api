@@ -1,11 +1,9 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Quorum.BusinessCore.Models.Sign;
-using Quorum.DataApi.Controllers.Sign.ResultModels;
+using Quorum.BusinessCore.Interfaces.Services;
 using Quorum.DataApi.Controllers.Sign.ViewModels;
-using Quorum.DataApi.Interfaces;
-using Quorum.Entities.Domain;
+using Quorum.DataApi.Services.Identity;
+using Quorum.Domain.Entities.Domain;
 using Quorum.Shared.Extensions;
 
 namespace Quorum.DataApi.Controllers.Sign
@@ -13,43 +11,28 @@ namespace Quorum.DataApi.Controllers.Sign
 	[Route("api/sign")]
 	public sealed class SignController : Controller
 	{
-		private readonly SignModel              _signModel;
-		private readonly IAuthenticationService _authenticationService;
+		private readonly IdentityService _identityService;
+		private readonly ISignUpService  _signUpService;
 
-		public SignController(SignModel signModel, IAuthenticationService authenticationService)
+		public SignController(IdentityService identityService, ISignUpService signUpService)
 		{
-			_signModel             = signModel;
-			_authenticationService = authenticationService;
+			_identityService = identityService;
+			_signUpService   = signUpService;
 		}
 
 		[HttpPost("up")]
-		public async Task<ActionResult<SignResultModel>> SignUp([FromBody] SignUpViewModel signUpModel)
+		public async Task<ActionResult> SignUp([FromBody] SignUpViewModel signUpModel)
 		{
-			var user = await _signModel.SignUp(signUpModel.MapTo<User>(), signUpModel.Password);
+			var user = await _signUpService.SignUpAsync(signUpModel.MapTo<User>());
 
 			if (user == null)
 			{
-				return Conflict(signUpModel);
+				return Conflict();
 			}
 
-			var token = _authenticationService.GenerateToken(user);
+			await _identityService.CreateUserAsync(signUpModel);
 
-			return Ok(new SignResultModel(token));
-		}
-
-		[HttpPost("in")]
-		public async Task<ActionResult<SignResultModel>> SignIn([FromBody] SignInViewModel signInModel)
-		{
-			var user = await _signModel.SignIn(signInModel.Email, signInModel.Password);
-
-			if (user == null)
-			{
-				return BadRequest(signInModel);
-			}
-
-			var token = _authenticationService.GenerateToken(user);
-
-			return Ok(new SignResultModel(token));
+			return Ok();
 		}
 	}
 }

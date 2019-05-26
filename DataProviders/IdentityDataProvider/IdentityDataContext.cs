@@ -1,12 +1,12 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Quorum.Entities.Domain;
-using Quorum.Entities.Identity;
+using Quorum.Domain.Entities.Identity;
 
 namespace Quorum.DataProviders.IdentityDataProvider
 {
-	public sealed class IdentityDataContext : IdentityDbContext<QuorumUser>
+	public sealed class IdentityDataContext : DbContext
 	{
+		public DbSet<QuorumUser> QuorumUsers { get; set; }
+
 		public IdentityDataContext(DbContextOptions options) : base(options)
 		{
 		}

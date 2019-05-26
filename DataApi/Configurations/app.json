@@ -1,7 +1,7 @@
 {
     "Authentication": {
-        "Audience": "Quorum.Client",
-        "Issuer": "Quorum.DataApi",
+        "Audience": "Quorum.DataApi",
+        "Issuer": "Quorum.IdentityApi",
         "SignKey": "089jIUH9877!23kw+81#jmNNl",
         "HashingAlgorithm": "HS256",
         "TokenLifetime": 30

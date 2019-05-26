@@ -1,24 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Quorum.BusinessCore.Interfaces;
+using Quorum.BusinessCore.Interfaces.Repositories;
 using Quorum.DataProviders.AdoDataProvider.Base;
 using Quorum.DataProviders.AdoDataProvider.Extensions;
-using Quorum.Entities.Domain;
+using Quorum.Domain.Entities.Domain;
 using SqlKata.Execution;
 
 namespace Quorum.DataProviders.AdoDataProvider.Repositories
 {
 	public class AnswerRepository : AdoRepositoryBase<Answer>, IAnswerRepository
 	{
-		public AnswerRepository(QueryFactory queryFactory) : base(queryFactory)
-		{
-		}
+		public AnswerRepository(QueryFactory queryFactory) : base(queryFactory) { }
 
 		public override async Task<int> CreateAsync(Answer answer)
 		{
-			var id = await Query.InsertReturningIdAsync<int>(new
+			int id = await Query.InsertReturningIdAsync<int>(new
 			{
 				answer.Content,
 				answer.IsCorrect,

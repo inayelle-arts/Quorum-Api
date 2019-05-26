@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-
-using Quorum.Entities;
-using Quorum.Entities.Domain;
+using Quorum.Domain.Entities.Domain;
 
 namespace Quorum.DataProviders.EfDataProvider
 {
@@ -20,7 +18,6 @@ namespace Quorum.DataProviders.EfDataProvider
 
 		public EfDataContext(DbContextOptions options) : base(options)
 		{
-			Database.Migrate();
 		}
 	}
 }

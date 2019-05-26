@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Quorum.BusinessCore.Interfaces;
+using Quorum.BusinessCore.Interfaces.Repositories;
 using Quorum.DataProviders.AdoDataProvider.Base;
 using Quorum.DataProviders.AdoDataProvider.Extensions;
-using Quorum.DataProviders.AdoDataProvider.Repositories;
-using Quorum.Entities;
-using Quorum.Entities.Domain;
+using Quorum.Domain.Entities.Domain;
 using SqlKata.Execution;
 
 namespace Quorum.DataProviders.AdoDataProvider.Repositories
@@ -16,15 +14,16 @@ namespace Quorum.DataProviders.AdoDataProvider.Repositories
 	{
 		private readonly IAnswerRepository _answerRepository;
 
-		public ChallengedAnswerRepository(QueryFactory queryFactory,
-										  IAnswerRepository answerRepository) : base(queryFactory)
+		public ChallengedAnswerRepository(QueryFactory      queryFactory,
+										  IAnswerRepository answerRepository
+		) : base(queryFactory)
 		{
 			_answerRepository = answerRepository;
 		}
 
 		public override async Task<int> CreateAsync(ChallengedAnswer answer)
 		{
-			var id = await Query.InsertReturningIdAsync<int>(new
+			int id = await Query.InsertReturningIdAsync<int>(new
 			{
 				answer.IsUserCorrect,
 				answer.SourceAnswerId,
@@ -45,7 +44,7 @@ namespace Quorum.DataProviders.AdoDataProvider.Repositories
 			foreach (var answer in answers)
 			{
 				answer.ChallengedQuestion = question;
-				answer.SourceAnswer = await _answerRepository.GetByIdAsync(answer.SourceAnswerId);
+				answer.SourceAnswer       = await _answerRepository.GetByIdAsync(answer.SourceAnswerId);
 			}
 
 			return answers.ToList();

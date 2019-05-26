@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,7 +33,7 @@ namespace Quorum.DataProviders.AdoDataProvider.Base
 
 		public abstract Task<int> CreateAsync(TEntity entity);
 
-		public virtual async Task<IEnumerable<int>> CreateAsync(IEnumerable<TEntity> entites)
+		public virtual async Task<ICollection<int>> CreateAsync(ICollection<TEntity> entites)
 		{
 			var ids = new List<int>();
 

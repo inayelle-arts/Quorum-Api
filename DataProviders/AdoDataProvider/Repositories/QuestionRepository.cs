@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Quorum.BusinessCore.Interfaces;
+using Quorum.BusinessCore.Interfaces.Repositories;
 using Quorum.DataProviders.AdoDataProvider.Base;
 using Quorum.DataProviders.AdoDataProvider.Extensions;
-using Quorum.Entities;
-using Quorum.Entities.Domain;
+using Quorum.Domain.Entities.Domain;
 using SqlKata.Execution;
 
 namespace Quorum.DataProviders.AdoDataProvider.Repositories
@@ -15,14 +14,12 @@ namespace Quorum.DataProviders.AdoDataProvider.Repositories
 	{
 		private readonly IAnswerRepository _answerRepository;
 
-		public QuestionRepository(QueryFactory queryFactory, IAnswerRepository answerRepository) : base(queryFactory)
-		{
-			_answerRepository = answerRepository;
-		}
+		public QuestionRepository(QueryFactory queryFactory, IAnswerRepository answerRepository) : base(queryFactory) =>
+				_answerRepository = answerRepository;
 
 		public override async Task<int> CreateAsync(Question question)
 		{
-			var id = await Query.InsertReturningIdAsync<int>(new
+			int id = await Query.InsertReturningIdAsync<int>(new
 			{
 				question.Content,
 				question.TestId
@@ -46,7 +43,7 @@ namespace Quorum.DataProviders.AdoDataProvider.Repositories
 
 			foreach (var question in questions)
 			{
-				question.Test = parent;
+				question.Test    = parent;
 				question.Answers = await _answerRepository.GetByParentQuestionAsync(question);
 			}
 

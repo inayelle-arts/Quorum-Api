@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Quorum.Entities;
-using Quorum.Entities.Identity;
+using Quorum.DataProviders.IdentityDataProvider.Repositories;
+using Quorum.Domain.IdentityCore.Interfaces.Repositories;
 
 namespace Quorum.DataProviders.IdentityDataProvider.Extensions
 {
@@ -12,8 +11,7 @@ namespace Quorum.DataProviders.IdentityDataProvider.Extensions
 		{
 			services.AddDbContext<IdentityDataContext>(o => o.UseNpgsql(connectionString));
 
-			services.AddIdentity<QuorumUser, IdentityRole>()
-			        .AddEntityFrameworkStores<IdentityDataContext>();
+			services.AddScoped<IQuorumUserRepository, QuorumUserRepository>();
 		}
 	}
 }
