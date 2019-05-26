@@ -5,7 +5,7 @@ namespace Quorum.Domain.IdentityCore.Interfaces.Services
 {
 	public interface ISignService
 	{
-		Task<QuorumUser> SignUpAsync(string email, string password, string role);
+		Task<QuorumUser> SignUpAsync(int domainId, string email, string password, string role);
 
 		Task<QuorumUser> SignInAsync(string email, string password);
 	}

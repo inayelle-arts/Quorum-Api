@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Quorum.BusinessCore.Interfaces.Services;
+using Quorum.DataApi.Controllers.Sign.PayloadModels;
 using Quorum.DataApi.Controllers.Sign.ViewModels;
 using Quorum.DataApi.Services.Identity;
 using Quorum.Domain.Entities.Domain;
@@ -30,7 +31,15 @@ namespace Quorum.DataApi.Controllers.Sign
 				return Conflict();
 			}
 
-			await _identityService.CreateUserAsync(signUpModel);
+			var payload = new CreateUserPayload
+			{
+				DomainId = user.Id,
+				Email    = user.Email,
+				Role     = user.Role,
+				Password = signUpModel.Password
+			};
+			
+			await _identityService.CreateUserAsync(payload);
 
 			return Ok();
 		}

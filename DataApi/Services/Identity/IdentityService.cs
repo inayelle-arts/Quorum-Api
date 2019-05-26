@@ -1,7 +1,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using Quorum.DataApi.Controllers.Sign.PayloadModels;
 using Quorum.DataApi.Controllers.Sign.ViewModels;
+using Quorum.Domain.Entities.Domain;
 using RabbitMQ.Client.Core.DependencyInjection;
 
 namespace Quorum.DataApi.Services.Identity
@@ -15,9 +17,9 @@ namespace Quorum.DataApi.Services.Identity
 			_queueService = queueService;
 		}
 
-		public async Task CreateUserAsync(SignUpViewModel model)
+		public async Task CreateUserAsync(CreateUserPayload userPayload)
 		{
-			string json = JsonConvert.SerializeObject(model);
+			string json = JsonConvert.SerializeObject(userPayload);
 			await _queueService.SendJsonAsync(json, "IdentityExchange", "sign.up");
 		}
 	}

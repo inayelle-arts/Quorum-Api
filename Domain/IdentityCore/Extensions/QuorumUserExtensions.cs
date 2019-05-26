@@ -10,7 +10,7 @@ namespace Quorum.Domain.IdentityCore.Extensions
 		{
 			return new[]
 			{
-				new Claim("id", user.Id.ToString()),
+				new Claim("id", user.DomainId.ToString()),
 				new Claim("email", user.Email),
 				new Claim("role", user.Role)
 			};

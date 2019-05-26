@@ -25,7 +25,7 @@ namespace Quorum.IdentityApi.Controllers.Token
 
 			if (user == null)
 			{
-				return Forbid();
+				return BadRequest(viewModel.Email);
 			}
 
 			return new SignInResultModel { Token = _jwtService.GenerateToken(user) };

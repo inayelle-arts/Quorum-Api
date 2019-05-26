@@ -19,7 +19,7 @@ namespace Quorum.IdentityApi.Handlers.CreateUser
 
 		protected override async Task Handle(CreateUserPayload payload)
 		{
-			await _signService.SignUpAsync(payload.Email, payload.Password, payload.Role);
+			await _signService.SignUpAsync(payload.DomainId, payload.Email, payload.Password, payload.Role);
 		}
 
 		public void Dispose()

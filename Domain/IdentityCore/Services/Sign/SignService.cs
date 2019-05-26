@@ -17,7 +17,7 @@ namespace Quorum.Domain.IdentityCore.Services.Sign
 			_passwordHasher = passwordHasher;
 		}
 
-		public async Task<QuorumUser> SignUpAsync(string email, string password, string role)
+		public async Task<QuorumUser> SignUpAsync(int domainId, string email, string password, string role)
 		{
 			if (await _userRepository.GetByEmailAsync(email) != null)
 			{
@@ -26,8 +26,9 @@ namespace Quorum.Domain.IdentityCore.Services.Sign
 
 			var user = new QuorumUser
 			{
-				Email        = email,
-				Role         = role
+				DomainId = domainId,
+				Email    = email,
+				Role     = role
 			};
 
 			user.PasswordHash = _passwordHasher.HashPassword(user, password);
