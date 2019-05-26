@@ -1,5 +1,6 @@
 {
     "ConnectionStrings": {
-        "Quorum_EF": "Server=127.0.0.1; Port=5432; Database=quorum_dev_storage; User Id=quorum_dev_user; Password=f8j40KJ)(!@;"
+        "Quorum_EF": "Server=127.0.0.1; Port=5432; Database=quorum_dev_storage; User Id=quorum_dev_user; Password=f8j40KJ)(!@;",
+        "Quorum_ADO": null
     }
 }

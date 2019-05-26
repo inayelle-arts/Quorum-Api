@@ -1,2 +1,5 @@
 {
+    "ConnectionStrings": {
+        "Quorum_Identity": "Server=127.0.0.1; Port=5432; Database=quorum_dev_identity_storage; User Id=quorum_dev_user; Password=f8j40KJ)(!@;"
+    }
 }
