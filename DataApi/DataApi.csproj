@@ -17,10 +17,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BusinessCore\BusinessCore.csproj" />
-    <ProjectReference Include="..\DataAccess\EfDataProvider\EfDataProvider.csproj" />
+    <ProjectReference Include="..\DataProviders\EfDataProvider\EfDataProvider.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
-    <ProjectReference Include="..\DataAccess\AdoDataProvider\AdoDataProvider.csproj" />
+    <ProjectReference Include="..\DataProviders\AdoDataProvider\AdoDataProvider.csproj" />
   </ItemGroup>
 
 </Project>

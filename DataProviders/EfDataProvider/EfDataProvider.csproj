@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <AssemblyName>Quorum.DataProviders.EfDataProvider</AssemblyName>
+        <RootNamespace>Quorum.DataProviders.EfDataProvider</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\BusinessCore\BusinessCore.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL">
+            <Version>2.2.0</Version>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3">
+        </DotNetCliToolReference>
+    </ItemGroup>
+
+</Project>

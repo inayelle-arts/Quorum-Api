@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Quorum.DataAccess.IdentityDataProvider.Extensions;
+using Quorum.DataProviders.IdentityDataProvider.Extensions;
 using StartupBase = Quorum.Shared.Base.StartupBase;
 
 namespace Quorum.IdentityApi

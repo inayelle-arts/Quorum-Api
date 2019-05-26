@@ -1,0 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Quorum.BusinessCore.Interfaces;
+using Quorum.DataProviders.EfDataProvider.Repositories;
+
+namespace Quorum.DataProviders.EfDataProvider.Extensions
+{
+	public static class ServiceCollectionExtensionsExtensions
+	{
+		public static void AddEfDataAccess(this IServiceCollection services, string connectionString)
+		{
+			services.AddDbContext<EfDataContext>(o => { o.UseNpgsql(connectionString); });
+
+			services.AddTransient<ITestRepository, TestRepository>()
+			        .AddTransient<IChallengedTestRepository, ChallengedTestRepository>()
+			        .AddTransient<IUserRepository, UserRepository>();
+		}
+	}
+}
