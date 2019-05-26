@@ -1,6 +1,5 @@
 using System.Data.Common;
 using Microsoft.Extensions.DependencyInjection;
-
 using Quorum.BusinessCore.Interfaces;
 using Quorum.BusinessCore.Interfaces.Repositories;
 using Quorum.DataProviders.AdoDataProvider.Details;

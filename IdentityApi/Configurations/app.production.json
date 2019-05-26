@@ -1,5 +1,26 @@
 {
     "ConnectionStrings": {
-        "Quorum_Identity": null
+        "Quorum_Identity": "Server=172.20.20.5; Port=5432; Database=quorum_prod_identity_storage; User Id=quorum_prod_user; Password=U5kJDt5LvnWcmdNd64RrYDeKYHphTjScg5R7fNx6;"
+    },
+    "RabbitMQ": {
+        "HostName": "172.20.20.3",
+        "Port": 5672,
+        "UserName": "guest",
+        "Password": "guest",
+        "Exchanges": {
+            "IdentityExchange": {
+                "Type": "direct",
+                "Durable": true,
+                "AutoDelete": false,
+                "Queues": [
+                    {
+                        "Name": "IdentityQueue",
+                        "RoutingKeys": [
+                            "sign.up"
+                        ]
+                    }
+                ]
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ using Quorum.BusinessCore.Extensions;
 using Quorum.DataApi.Enums;
 using Quorum.DataApi.Extensions;
 using Quorum.DataApi.Services.Identity;
+using Quorum.DataProviders.EfDataProvider;
 using Quorum.Shared.Extensions;
 using StartupBase = Quorum.Shared.Base.StartupBase;
 
@@ -37,6 +38,8 @@ namespace Quorum.DataApi
 
 		public override void Configure(IApplicationBuilder app)
 		{
+			app.EnsureMigrated<EfDataContext>();
+			
 			app.UseAuthentication();
 			
 			app.UseMvc();

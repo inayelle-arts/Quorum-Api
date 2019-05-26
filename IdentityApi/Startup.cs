@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quorum.DataProviders.IdentityDataProvider;
 using Quorum.DataProviders.IdentityDataProvider.Extensions;
 using Quorum.Domain.IdentityCore.Extensions;
 using Quorum.IdentityApi.Extensions;
@@ -33,6 +35,8 @@ namespace Quorum.IdentityApi
 
 		public override void Configure(IApplicationBuilder app)
 		{
+			app.EnsureMigrated<IdentityDataContext>();
+			
 			app.UseRabbitMq();
 			
 			app.UseMvc();

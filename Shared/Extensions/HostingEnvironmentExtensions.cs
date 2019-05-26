@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,7 +8,6 @@ namespace Quorum.Shared.Extensions
 	public static class HostingEnvironmentExtensions
 	{
 		private const string ConfigurationsDirectory = "Configurations";
-		private const string EnvironmentVarsPrefix   = "QUORUM_";
 
 		public static IConfiguration GetConfiguration(this IHostingEnvironment environment)
 		{
@@ -19,7 +19,7 @@ namespace Quorum.Shared.Extensions
 				  .SetBasePath(configDir)
 				  .AddJsonFile("app.json", false)
 				  .AddJsonFile($"app.{environmentName}.json", true)
-				  .AddEnvironmentVariables(EnvironmentVarsPrefix)
+				  .AddEnvironmentVariables()
 				  .Build();
 		}
 	}

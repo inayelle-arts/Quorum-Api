@@ -9,7 +9,7 @@ namespace Quorum.IdentityApi.Extensions
 		public static void UseRabbitMq(this IApplicationBuilder app)
 		{
 			var queueService = app.ApplicationServices.GetRequiredService<IQueueService>();
-			
+
 			queueService.StartConsuming();
 		}
 	}
