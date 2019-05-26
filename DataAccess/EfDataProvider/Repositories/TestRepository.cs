@@ -27,7 +27,7 @@ namespace Quorum.DataAccess.EfDataProvider.Repositories
 			                    .FirstOrDefaultAsync();
 		}
 
-		public async Task<IEnumerable<Test>> GetOwnTestsAsync(int userId)
+		public async Task<IEnumerable<Test>> GetTutorOwnTestsAsync(int userId)
 		{
 			return await context.Tests
 			                    .Where(t => t.UserId == userId)

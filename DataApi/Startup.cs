@@ -1,10 +1,8 @@
 using System.Reflection;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 using Quorum.BusinessCore.Models.Challenge;
 using Quorum.DataApi.Enums;
 using Quorum.DataApi.Extensions;
@@ -15,8 +13,8 @@ namespace Quorum.DataApi
 {
 	internal sealed class Startup
 	{
-		public IHostingEnvironment Environment   { get; }
-		public IConfiguration      Configuration { get; }
+		private IHostingEnvironment Environment   { get; }
+		private IConfiguration      Configuration { get; }
 
 		public Startup(IHostingEnvironment environment)
 		{
@@ -28,13 +26,13 @@ namespace Quorum.DataApi
 		{
 			services.AddSingleton(Configuration);
 			services.AddSettings(Configuration);
-			
+
 			services.AddPasswordHasher();
 			services.AddModels(typeof(ChallengeModel).Assembly);
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 			services.AddDataProvider(DataProvider.EntityFramework, Configuration.GetConnectionString("Quorum_EF"));
-			
+
 			services.AddJwtAuthentication(Configuration);
 			services.AddApiMvc();
 		}

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BusinessCore.Interfaces;
 using Quorum.BusinessCore.Interfaces;
 using Quorum.DataAccess.AdoDataProvider.Base;
 using Quorum.DataAccess.AdoDataProvider.Extensions;
@@ -54,7 +53,7 @@ namespace Quorum.DataAccess.AdoDataProvider.Repositories
 			return id;
 		}
 
-		public Task<IEnumerable<Test>> GetOwnTestsAsync(int userId)
+		public Task<IEnumerable<Test>> GetTutorOwnTestsAsync(int userId)
 		{
 			throw new NotImplementedException();
 		}

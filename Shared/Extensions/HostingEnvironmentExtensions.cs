@@ -6,19 +6,21 @@ namespace Quorum.Shared.Extensions
 {
 	public static class HostingEnvironmentExtensions
 	{
-		public const string ConfigurationsDirectory = "Configurations";
+		private const string ConfigurationsDirectory = "Configurations";
+		private const string EnvironmentVarsPrefix   = "QUORUM_";
 
 		public static IConfiguration GetConfiguration(this IHostingEnvironment environment)
 		{
-			var configDir = Path.Combine(environment.ContentRootPath, ConfigurationsDirectory);
+			string configDir = Path.Combine(environment.ContentRootPath, ConfigurationsDirectory);
 
-			var environmentName = environment.EnvironmentName.ToLowerInvariant();
+			string environmentName = environment.EnvironmentName.ToLowerInvariant();
 
 			return new ConfigurationBuilder()
-			       .SetBasePath(configDir)
-			       .AddJsonFile("app.json", false, true)
-			       .AddJsonFile($"app.{environmentName}.json", true, true)
-			       .Build();
+				  .SetBasePath(configDir)
+				  .AddJsonFile("app.json", false)
+				  .AddJsonFile($"app.{environmentName}.json", true)
+				  .AddEnvironmentVariables(EnvironmentVarsPrefix)
+				  .Build();
 		}
 	}
 }

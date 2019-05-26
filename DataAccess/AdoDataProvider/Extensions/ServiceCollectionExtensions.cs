@@ -1,7 +1,4 @@
 using System.Data.Common;
-
-using BusinessCore.Interfaces;
-
 using Microsoft.Extensions.DependencyInjection;
 
 using Quorum.BusinessCore.Interfaces;

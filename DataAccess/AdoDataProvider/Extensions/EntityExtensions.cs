@@ -1,6 +1,6 @@
 using Quorum.Shared.Interfaces;
 
-namespace AdoDataProvider.Extensions
+namespace Quorum.DataAccess.AdoDataProvider.Extensions
 {
     internal static class EntityExtensions
     {

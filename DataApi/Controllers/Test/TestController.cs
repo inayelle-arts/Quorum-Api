@@ -40,7 +40,7 @@ namespace Quorum.DataApi.Controllers.Test
 		[Authorize(Roles = Entities.Domain.UserRole.Tutor)]
 		public async Task<ActionResult<IEnumerable<TestPreviewResultModel>>> GetTestsPreviews()
 		{
-			var tests = await _testRepository.GetOwnTestsAsync(UserId);
+			var tests = await _testRepository.GetTutorOwnTestsAsync(UserId);
 
 			return tests.Select(t => t.MapTo<TestPreviewResultModel>()).ToList();
 		}
