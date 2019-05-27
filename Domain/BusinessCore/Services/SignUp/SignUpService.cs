@@ -5,7 +5,7 @@ using Quorum.Domain.Entities.Domain;
 
 namespace Quorum.BusinessCore.Services.SignUp
 {
-	public sealed class SignUpService : ISignUpService
+	internal sealed class SignUpService : ISignUpService
 	{
 		private readonly IUserRepository _userRepository;
 		
