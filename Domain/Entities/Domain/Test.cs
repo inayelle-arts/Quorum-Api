@@ -19,6 +19,8 @@ namespace Quorum.Domain.Entities.Domain
 		public ICollection<Tag>      Tags      { get; set; }
 		public ICollection<Question> Questions { get; set; }
 
+		public bool ShuffleQuestionsOnChallenge { get; set; }
+
 		public Test()
 		{
 			Tags      = new List<Tag>();

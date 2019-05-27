@@ -18,6 +18,8 @@ namespace Quorum.DataApi.Controllers.Test.ViewModels
 
 		[Required]
 		public DateTime CreatedAt { get; set; }
+		
+		public bool ShuffleQuestions { get; set; }
 
 		[Required]
 		[MinLength(1)]

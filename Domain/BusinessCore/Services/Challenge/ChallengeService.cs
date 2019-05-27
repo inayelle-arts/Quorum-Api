@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Quorum.BusinessCore.Interfaces.Repositories;
 using Quorum.BusinessCore.Interfaces.Services;
@@ -16,6 +18,23 @@ namespace Quorum.BusinessCore.Services.Challenge
 			_challengedTests = challengedTests;
 		}
 
+		public async Task<Test> GetTestForChallengeAsync(int id)
+		{
+			var test = await _tests.GetByIdAsync(id);
+
+			if (test == null)
+			{
+				return null;
+			}
+
+			if (test.ShuffleQuestionsOnChallenge)
+			{
+				ShuffleQuestions(test);
+			}
+
+			return test;
+		}
+		
 		public async Task<int> PerformChallengeAsync(ChallengedTest test)
 		{
 			var challengeExecutor = new ChallengeExecutor();
@@ -25,6 +44,13 @@ namespace Quorum.BusinessCore.Services.Challenge
 			await challengeExecutor.ChallengeAsync(test);
 
 			return await _challengedTests.CreateAsync(test);
+		}
+
+		private void ShuffleQuestions(Test test)
+		{
+			var random = new Random();
+			
+			test.Questions = test.Questions.OrderBy(q => random.Next()).ToList();
 		}
 	}
 }
