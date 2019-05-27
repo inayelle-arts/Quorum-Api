@@ -21,6 +21,7 @@ namespace Quorum.DataApi.Mapping
 							  opt => { opt.MapFrom(so => so.Tags.Select(t => new Tag { Content = t }).ToList()); });
 
 			CreateMap<Test, TestPreviewResultModel>()
+				   .ForField(test => test.ShuffleQuestionsOnChallenge, rm => rm.ShuffleQuestions)
 				   .ForMember(test => test.Tags,
 							  opt => { opt.MapFrom(so => so.Tags.Select(t => t.Content)); })
 				   .ForMember(test => test.QuestionsCount,

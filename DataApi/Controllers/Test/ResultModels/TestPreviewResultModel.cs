@@ -12,6 +12,8 @@ namespace Quorum.DataApi.Controllers.Test.ResultModels
 		public string Description { get; set; }
 
 		public DateTime CreatedAt { get; set; }
+		
+		public bool ShuffleQuestions { get; set; }
 
 		public int                 QuestionsCount { get; set; }
 		public IEnumerable<string> Tags           { get; set; }

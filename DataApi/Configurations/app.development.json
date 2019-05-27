@@ -6,7 +6,7 @@
     "Authentication": {
         "Audience": "Quorum.DataApi",
         "Issuer": "Quorum.IdentityApi",
-        "SignKey": "key",
+        "SignKey": "keykeykeykeykeykeykeykeykey",
         "HashingAlgorithm": "HS256",
         "TokenLifetime": 10000
     },

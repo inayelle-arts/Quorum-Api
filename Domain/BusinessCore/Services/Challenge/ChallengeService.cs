@@ -7,7 +7,7 @@ using Quorum.Domain.Entities.Domain;
 
 namespace Quorum.BusinessCore.Services.Challenge
 {
-	public sealed class ChallengeService : IChallengeService
+	internal sealed class ChallengeService : IChallengeService
 	{
 		private readonly ITestRepository           _tests;
 		private readonly IChallengedTestRepository _challengedTests;
@@ -18,7 +18,7 @@ namespace Quorum.BusinessCore.Services.Challenge
 			_challengedTests = challengedTests;
 		}
 
-		public async Task<Test> GetTestForChallengeAsync(int id)
+		public async Task<Domain.Entities.Domain.Test> GetTestForChallengeAsync(int id)
 		{
 			var test = await _tests.GetByIdAsync(id);
 
@@ -46,7 +46,7 @@ namespace Quorum.BusinessCore.Services.Challenge
 			return await _challengedTests.CreateAsync(test);
 		}
 
-		private void ShuffleQuestions(Test test)
+		private void ShuffleQuestions(Domain.Entities.Domain.Test test)
 		{
 			var random = new Random();
 			

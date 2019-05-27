@@ -7,6 +7,6 @@ namespace Quorum.BusinessCore.Interfaces.Repositories
 {
 	public interface ITestRepository : IRepository<Test>
 	{
-		Task<IEnumerable<Test>> GetTutorOwnTestsAsync(int userId);
+		Task<ICollection<Test>> GetTutorOwnTestsAsync(int userId);
 	}
 }

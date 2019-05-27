@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Quorum.BusinessCore.Interfaces;
-using Quorum.BusinessCore.Interfaces.Repositories;
+using Quorum.BusinessCore.Interfaces.Services;
 using Quorum.DataApi.Controllers.Test.ResultModels;
 using Quorum.DataApi.Controllers.Test.ViewModels;
 using Quorum.Shared.Extensions;
@@ -15,11 +16,11 @@ namespace Quorum.DataApi.Controllers.Test
 	[Route("api/test")]
 	public sealed class TestController : ControllerBase
 	{
-		private readonly ITestRepository _testRepository;
+		private readonly ITestService _testService;
 
-		public TestController(ITestRepository testRepository)
+		public TestController(ITestService testService)
 		{
-			_testRepository = testRepository;
+			_testService = testService;
 		}
 
 		[HttpPost]
@@ -27,10 +28,9 @@ namespace Quorum.DataApi.Controllers.Test
 		public async Task<ActionResult<int>> Create([FromBody] CreateTestViewModel test)
 		{
 			var entity = test.MapTo<Domain.Entities.Domain.Test>();
-
 			entity.UserId = UserId;
 
-			await _testRepository.CreateAsync(entity);
+			await _testService.CreateTestAsync(entity);
 
 			return entity.Id;
 		}
@@ -39,7 +39,7 @@ namespace Quorum.DataApi.Controllers.Test
 		[Authorize(Roles = Domain.Entities.Enums.UserRole.Tutor)]
 		public async Task<ActionResult<IEnumerable<TestPreviewResultModel>>> GetTestsPreviews()
 		{
-			var tests = await _testRepository.GetTutorOwnTestsAsync(UserId);
+			var tests = await _testService.GetTutorOwnTestsAsync(UserId);
 
 			return tests.Select(t => t.MapTo<TestPreviewResultModel>()).ToList();
 		}
@@ -48,15 +48,29 @@ namespace Quorum.DataApi.Controllers.Test
 		[Authorize(Roles = Domain.Entities.Enums.UserRole.Tutor)]
 		public async Task<ActionResult<int>> DeleteTest(int id)
 		{
-			var test = await _testRepository.GetByIdAsync(id);
+			var test = await _testService.DeleteTestAsync(id);
 
 			if (test == null)
 			{
 				return NotFound(id);
 			}
 
-			await _testRepository.DeleteAsync(test);
 			return Ok(id);
+		}
+
+		[HttpPatch("{id}")]
+		public async Task<ActionResult> PatchShuffleQuestionsToggle(int                                        id,
+																	[FromBody] PatchTestShuffleQuestionsToggle viewModel
+		)
+		{
+			var test = await _testService.ToggleTestShuffleQuestionsAsync(id, viewModel.ShuffleQuestions);
+
+			if (test == null)
+			{
+				return NotFound(id);
+			}
+
+			return Ok();
 		}
 	}
 }
