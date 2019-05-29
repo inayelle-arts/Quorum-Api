@@ -8,10 +8,10 @@ namespace Quorum.Domain.Entities.Domain
 	{
 		public int Id { get; set; }
 
-		public DateTime ChallengedAt { get; set; }
-
 		public int MaximumScore { get; set; }
 		public int UserScore    { get; set; }
+
+		public DateTime ChallengedAt { get; set; }
 
 		public int  SourceTestId { get; set; }
 		public Test SourceTest   { get; set; }
@@ -20,10 +20,5 @@ namespace Quorum.Domain.Entities.Domain
 		public User User   { get; set; }
 
 		public ICollection<ChallengedQuestion> Questions { get; set; }
-
-		public ChallengedTest()
-		{
-			Questions = new List<ChallengedQuestion>();
-		}
 	}
 }

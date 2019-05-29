@@ -7,15 +7,13 @@ using Quorum.Shared.Base;
 
 namespace Quorum.DataProviders.EfDataProvider.Repositories
 {
-	public sealed class UserRepository : EfRepositoryBase<User, EfDataContext>, IUserRepository
+	internal sealed class UserRepository : EfRepositoryBase<User, EfDataContext>, IUserRepository
 	{
-		public UserRepository(EfDataContext context) : base(context)
-		{
-		}
+		public UserRepository(EfDataContext context) : base(context) { }
 
-		public async Task<User> FindByEmailAsync(string email)
+		public Task<User> FindByEmailAsync(string email)
 		{
-			return await Context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+			return Context.Users.FirstOrDefaultAsync(u => u.Email == email);
 		}
 	}
 }

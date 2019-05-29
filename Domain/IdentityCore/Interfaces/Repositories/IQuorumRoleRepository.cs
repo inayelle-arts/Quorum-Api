@@ -4,10 +4,8 @@ using Quorum.Shared.Interfaces;
 
 namespace Quorum.Domain.IdentityCore.Interfaces.Repositories
 {
-	public interface IQuorumUserRepository : IRepository<QuorumUser>
+	public interface IQuorumRoleRepository : IRepository<QuorumRole>
 	{
-		Task<QuorumUser> GetByEmailAsync(string email);
-
-		Task<bool> IsEmailTakenAsync(string email);
+		Task<QuorumRole> GetByNameAsync(string name);
 	}
 }

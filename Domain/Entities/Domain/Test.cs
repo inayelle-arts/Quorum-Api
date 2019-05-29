@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.Domain.Entities.Domain
@@ -8,7 +9,12 @@ namespace Quorum.Domain.Entities.Domain
 	{
 		public int Id { get; set; }
 
-		public string Name        { get; set; }
+		public bool ShuffleQuestionsOnChallenge { get; set; }
+
+		[Required]
+		public string Name { get; set; }
+
+		[Required]
 		public string Description { get; set; }
 
 		public int  UserId { get; set; }
@@ -18,13 +24,5 @@ namespace Quorum.Domain.Entities.Domain
 
 		public ICollection<Tag>      Tags      { get; set; }
 		public ICollection<Question> Questions { get; set; }
-
-		public bool ShuffleQuestionsOnChallenge { get; set; }
-
-		public Test()
-		{
-			Tags      = new List<Tag>();
-			Questions = new List<Question>();
-		}
 	}
 }

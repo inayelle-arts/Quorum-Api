@@ -7,13 +7,30 @@ using Quorum.Shared.Base;
 
 namespace Quorum.DataProviders.IdentityDataProvider.Repositories
 {
-	public sealed class QuorumUserRepository : EfRepositoryBase<QuorumUser, IdentityDataContext>, IQuorumUserRepository
+	internal sealed class QuorumUserRepository : EfRepositoryBase<QuorumUser, IdentityDataContext>,
+												 IQuorumUserRepository
 	{
 		public QuorumUserRepository(IdentityDataContext context) : base(context) { }
 
-		public async Task<QuorumUser> GetByEmailAsync(string email)
+		public override Task<QuorumUser> GetByIdAsync(int id)
 		{
-			return await Context.QuorumUsers.Where(u => u.Email == email).FirstOrDefaultAsync();
+			return Context.QuorumUsers
+						  .Where(u => u.Id == id)
+						  .Include(u => u.Role)
+						  .FirstOrDefaultAsync();
+		}
+
+		public Task<QuorumUser> GetByEmailAsync(string email)
+		{
+			return Context.QuorumUsers
+						  .Where(u => u.Email == email)
+						  .Include(u => u.Role)
+						  .FirstOrDefaultAsync();
+		}
+
+		public Task<bool> IsEmailTakenAsync(string email)
+		{
+			return Context.QuorumUsers.AnyAsync(u => u.Email == email);
 		}
 	}
 }

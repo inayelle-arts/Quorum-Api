@@ -50,10 +50,10 @@ namespace Quorum.DataProviders.AdoDataProvider.Repositories
 			return id;
 		}
 
-		public Task<IEnumerable<ChallengedTest>> GetStudentsResultsAsync(int userId) =>
+		public Task<ICollection<ChallengedTest>> GetStudentsResultsAsync(int userId) =>
 				throw new NotImplementedException();
 
-		public Task<IEnumerable<ChallengedTest>> GetTutorsResultsAsync(int userId) =>
+		public Task<ICollection<ChallengedTest>> GetTutorsResultsAsync(int userId) =>
 				throw new NotImplementedException();
 
 		public override async Task<ChallengedTest> GetByIdAsync(int id)

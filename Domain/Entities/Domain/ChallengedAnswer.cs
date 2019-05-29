@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.Domain.Entities.Domain
@@ -9,9 +10,10 @@ namespace Quorum.Domain.Entities.Domain
 		public int    SourceAnswerId { get; set; }
 		public Answer SourceAnswer   { get; set; }
 
-		public int 				  ChallengedQuestionId { get; set; }
+		public int                ChallengedQuestionId { get; set; }
 		public ChallengedQuestion ChallengedQuestion   { get; set; }
 
+		[Required]
 		public bool IsUserCorrect { get; set; }
 	}
 }
