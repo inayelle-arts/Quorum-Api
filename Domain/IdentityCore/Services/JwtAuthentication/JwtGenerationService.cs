@@ -7,7 +7,7 @@ using Quorum.Domain.IdentityCore.Interfaces.Services;
 
 namespace Quorum.Domain.IdentityCore.Services.JwtAuthentication
 {
-	public class JwtGenerationService : IJwtGenerationService
+	internal sealed class JwtGenerationService : IJwtGenerationService
 	{
 		private readonly JwtSecurityTokenHandler _jwtHandler;
 		private readonly SigningCredentials      _credentials;

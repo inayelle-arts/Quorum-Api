@@ -35,7 +35,7 @@ namespace Quorum.DataApi.Controllers.Sign
 			{
 				DomainId = user.Id,
 				Email    = user.Email,
-				Role     = user.Role,
+				Role     = signUpModel.Role,
 				Password = signUpModel.Password
 			};
 			

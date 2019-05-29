@@ -11,7 +11,8 @@ namespace Quorum.DataProviders.IdentityDataProvider.Extensions
 		{
 			services.AddDbContext<IdentityDataContext>(o => o.UseNpgsql(connectionString));
 
-			services.AddScoped<IQuorumUserRepository, QuorumUserRepository>();
+			services.AddScoped<IQuorumUserRepository, QuorumUserRepository>()
+					.AddScoped<IQuorumRoleRepository, QuorumRoleRepository>();
 		}
 	}
 }

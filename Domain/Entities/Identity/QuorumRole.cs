@@ -1,14 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using Quorum.Shared.Interfaces;
 
-namespace Quorum.Domain.Entities.Domain
+namespace Quorum.Domain.Entities.Identity
 {
-	public class User : IEntity
+	public sealed class QuorumRole : IEntity
 	{
 		public int Id { get; set; }
 
-		[Required]
 		[MaxLength(255)]
-		public string Email { get; set; }
+		public string Name { get; set; }
 	}
 }

@@ -12,9 +12,9 @@ namespace Quorum.DataProviders.EfDataProvider.Extensions
 		{
 			services.AddDbContext<EfDataContext>(o => { o.UseNpgsql(connectionString); });
 
-			services.AddTransient<ITestRepository, TestRepository>()
-			        .AddTransient<IChallengedTestRepository, ChallengedTestRepository>()
-			        .AddTransient<IUserRepository, UserRepository>();
+			services.AddScoped<ITestRepository, TestRepository>()
+					.AddScoped<IChallengedTestRepository, ChallengedTestRepository>()
+					.AddScoped<IUserRepository, UserRepository>();
 		}
 	}
 }

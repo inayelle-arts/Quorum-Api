@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Quorum.Shared.Interfaces;
 
 namespace Quorum.Domain.Entities.Domain
@@ -7,16 +8,12 @@ namespace Quorum.Domain.Entities.Domain
 	{
 		public int Id { get; set; }
 
+		[Required]
 		public string Content { get; set; }
-
-		public ICollection<Answer> Answers { get; set; }
 
 		public int  TestId { get; set; }
 		public Test Test   { get; set; }
 
-		public Question()
-		{
-			Answers = new List<Answer>();
-		}
+		public ICollection<Answer> Answers { get; set; }
 	}
 }

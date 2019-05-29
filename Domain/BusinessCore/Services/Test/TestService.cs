@@ -21,9 +21,9 @@ namespace Quorum.BusinessCore.Services.Test
 			return test;
 		}
 
-		public async Task<ICollection<Domain.Entities.Domain.Test>> GetTutorOwnTestsAsync(int tutorId)
+		public Task<ICollection<Domain.Entities.Domain.Test>> GetTutorOwnTestsAsync(int tutorId)
 		{
-			return await _testRepository.GetTutorOwnTestsAsync(tutorId);
+			return _testRepository.GetTutorOwnTestsAsync(tutorId);
 		}
 
 		public async Task<Domain.Entities.Domain.Test> DeleteTestAsync(int testId)
