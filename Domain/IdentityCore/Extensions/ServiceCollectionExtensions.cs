@@ -1,10 +1,10 @@
 using System.IdentityModel.Tokens.Jwt;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Quorum.Domain.Entities.Identity;
 using Quorum.Domain.IdentityCore.Interfaces.Services;
 using Quorum.Domain.IdentityCore.Services.JwtAuthentication;
-using Quorum.Domain.IdentityCore.Services.Sign;
 
 namespace Quorum.Domain.IdentityCore.Extensions
 {
@@ -16,7 +16,7 @@ namespace Quorum.Domain.IdentityCore.Extensions
 					.AddSingleton<JwtSecurityTokenHandler>()
 					.AddSingleton<IJwtGenerationService, JwtGenerationService>();
 
-			services.AddScoped<ISignService, SignService>();
+			services.AddMediatR(typeof(ServiceCollectionExtensions).Assembly);
 		}
 	}
 }
