@@ -1,6 +1,6 @@
 using Quorum.Shared.Interfaces;
 
-namespace Quorum.IdentityApi.Controllers.Token.ResultModels
+namespace Quorum.IdentityApi.Controllers.Sign.ResultModels
 {
 	public sealed class SignInResultModel : IDataTransferObject
 	{

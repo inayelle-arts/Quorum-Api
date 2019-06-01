@@ -19,5 +19,9 @@
       <ProjectReference Include="..\Domain\IdentityCore\IdentityCore.csproj" />
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\Sign\ViewModels" />
+    </ItemGroup>
 	
 </Project>

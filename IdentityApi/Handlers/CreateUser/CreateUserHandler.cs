@@ -1,25 +1,27 @@
 using System;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Quorum.Domain.IdentityCore.Infrastructure.Commands.SignUp;
 using Quorum.Domain.IdentityCore.Interfaces.Services;
 using Quorum.IdentityApi.Base;
 
 namespace Quorum.IdentityApi.Handlers.CreateUser
 {
-	internal sealed class CreateUserHandler : AsyncMessageHandlerBase<CreateUserPayload>, IDisposable
+	internal sealed class CreateUserHandler : AsyncMessageHandlerBase<SignUpRequest>, IDisposable
 	{
 		private readonly IServiceScope _serviceScope;
-		private readonly ISignService  _signService;
+		private readonly IMediator     _mediator;
 
 		public CreateUserHandler(IServiceProvider serviceProvider)
 		{
 			_serviceScope = serviceProvider.CreateScope();
-			_signService  = _serviceScope.ServiceProvider.GetRequiredService<ISignService>();
+			_mediator     = _serviceScope.ServiceProvider.GetRequiredService<IMediator>();
 		}
 
-		protected override async Task Handle(CreateUserPayload payload)
+		protected override Task Handle(SignUpRequest request)
 		{
-			await _signService.SignUpAsync(payload.DomainId, payload.Email, payload.Password, payload.Role);
+			return _mediator.Send(request);
 		}
 
 		public void Dispose()
